@@ -1,7 +1,7 @@
 /**************************************************
   Universidade Federal da Grande Dourados - UFGD
-  Trabalho Computação Gráfica - Batalha Urbana 3D
-  Bianca Andréia, Fabio Amaral Godoy da Silveira
+  Trabalho ComputaÃ§Ã£o GrÃ¡fica - Batalha Urbana 3D
+  Bianca AndrÃ©ia, Fabio Amaral Godoy da Silveira
 **************************************************/
 
 #include <GL/glut.h>
@@ -81,18 +81,18 @@ void desenha(float p1[3], float p2[3], float p3[3], float p4[3])
 void retangulo()
 {
     float c = 4, // Comprimento
-          l = 6, // Largura
+          l = 4, // Largura
           p = 4; // Pronfundidade
 
-    float v1[3] = {-c, l,  p},
-          v2[3] = {-c, 0,  p},
-          v3[3] = { c, 0,  p},
-          v4[3] = { c, l,  p};
+    float v1[3] = {-c,  l,  p},
+          v2[3] = {-c, -l,  p},
+          v3[3] = { c, -l,  p},
+          v4[3] = { c,  l,  p};
 
-    float v5[3] = { c, l, -p},
-          v6[3] = { c, 0, -p},
-          v7[3] = {-c, 0, -p},
-          v8[3] = {-c, l, -p};
+    float v5[3] = { c,  l, -p},
+          v6[3] = { c, -l, -p},
+          v7[3] = {-c, -l, -p},
+          v8[3] = {-c,  l, -p};
 
     //Face 1 - Frente
     desenha(v1,v2,v3,v4);
@@ -185,7 +185,7 @@ void desenha_carrinho_1()
 {
     glPushMatrix();
         glColor3f(0.5,0.5,0.5);
-        glTranslatef(1,1,-10);
+        glTranslatef(0,0,-10);
         retangulo();
     glPopMatrix();
 }
@@ -284,8 +284,8 @@ void Atualiza_Desenho(void)
     glRotated(L,0,1,0);
 
     glColor3f(0.5,0.5,0.5);
-    //retangulo();
-    desenha_carrinho_1();
+    retangulo();
+    //desenha_carrinho_1();
 
     glutPostRedisplay();
     glutSwapBuffers();
@@ -333,7 +333,7 @@ void nova_rodada()
         g = 0.5;
         b = 0.5;
     }
-    if(numero_aleatorio == 1)   // Se o número e 1, o fundo e roxo.
+    if(numero_aleatorio == 1)   // Se o nÃºmero e 1, o fundo e roxo.
     {
         r = 0.5;
         g = 0.5;
@@ -358,12 +358,12 @@ void nova_rodada()
 
 void vez_jogada()
 {
-    jogada++;   // Incrementa o número da jogada.
+    jogada++;   // Incrementa o nÃºmero da jogada.
 }
 
 void tempo(int value)
 {
-    Tempo += 0.1;   // O tempo para utilizar na equacao de lancamento oblíquo.
+    Tempo += 0.1;   // O tempo para utilizar na equacao de lancamento oblÃ­quo.
     glutPostRedisplay();
 }
 
@@ -537,7 +537,7 @@ void tiro_1()
             {
                 c2_cor = 0.5; // O Carrinho 2 muda de cor ao ser atingido.
                 srand(time(NULL));
-                // Gera números aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
+                // Gera nÃºmeros aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
                 n1 = rand()%4;
                 n2 = rand()%4;
             }
@@ -546,7 +546,7 @@ void tiro_1()
             {
                 c2_cor = 0.0; // O Carrinho 2 muda de cor ao ser atingido.
                 srand(time(NULL));
-                // Gera números aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
+                // Gera nÃºmeros aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
                 n1 = rand()%4;
                 n2 = rand()%4;
             }
@@ -638,7 +638,7 @@ void tiro_2()
             {
                 c1_cor = 0.5; // O Carrinho 1 muda de cor ao ser atingido.
                 srand(time(NULL));
-                // Gera números aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
+                // Gera nÃºmeros aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
                 n1 = rand()%4;
                 n2 = rand()%4;
             }
@@ -647,7 +647,7 @@ void tiro_2()
             {
                 c1_cor = 0.0; // O Carrinho 1 muda de cor ao ser atingido.
                 srand(time(NULL));
-                // Gera números aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
+                // Gera nÃºmeros aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
                 n1 = rand()%4;
                 n2 = rand()%4;
             }
@@ -823,7 +823,7 @@ void texto()
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
-    // Gera números aleatorios de 0 a 3, para definir as posicoes dos carrinhos.
+    // Gera nÃºmeros aleatorios de 0 a 3, para definir as posicoes dos carrinhos.
     n1 = rand()%4;
     n2 = rand()%4;
 
@@ -845,7 +845,7 @@ int main(int argc, char *argv[])
         g = 0.5;
         b = 0.5;
     }
-    if(numero_aleatorio == 1)   // Se o número e 1, o fundo e roxo.
+    if(numero_aleatorio == 1)   // Se o nÃºmero e 1, o fundo e roxo.
     {
         r = 0.5;
         g = 0.5;
