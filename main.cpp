@@ -1,31 +1,18 @@
 /**************************************************
   Universidade Federal da Grande Dourados - UFGD
-  Trabalho Computação Gráfica - Batalha Urbana 3D
-  Bianca Andréia, Fabio Amaral Godoy da Silveira
+  Trabalho Computacao Grafica - Batalha Urbana 3D
+  Bianca Andreia, Fabio Amaral Godoy da Silveira
 **************************************************/
 
 #include <GL/glut.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <math.h>
 #include <time.h>
 #define PI 3.14159265
 #define G 9.81
 
-
-typedef float color[3];
-
-color vermelho     = {0.85, 0.12, 0.00};
-color verde        = {0.00, 1.00, 0.00};
-color azul         = {0.00, 0.15, 0.35};
-color preto        = {0.00, 0.00, 0.00};
-color branco       = {1.00, 1.00, 1.00};
-color branco_gelo  = {0.88, 0.91, 0.89};
-color amarelo      = {1.00, 1.00, 0.00};
-color violeta      = {0.54, 0.17, 0.88};
-color cinza        = {0.80, 0.80, 0.80};
-color cinza_escuro = {0.67, 0.67, 0.67};
-color laranja      = {1.00, 0.60, 0.20};
 
 void texto();
 void tiro_1();
@@ -33,6 +20,7 @@ void tiro_2();
 void trajetoria_balistica_1();
 void trajetoria_balistica_2();
 void nova_rodada();
+
 
 char buf_1[100] = {0};
 
@@ -56,7 +44,7 @@ void Atualiza_Tamanho(int w, int h)
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(3*30.0, aspect, 0.1, 500.0);
+    gluPerspective(90.0, aspect, 0.1, 500.0);
 
     glMatrixMode(GL_MODELVIEW);
 }
@@ -81,18 +69,18 @@ void desenha(float p1[3], float p2[3], float p3[3], float p4[3])
 void retangulo()
 {
     float c = 4, // Comprimento
-          l = 4, // Largura
+          l = 6, // Largura
           p = 4; // Pronfundidade
 
-    float v1[3] = {-c,  l,  p},
-          v2[3] = {-c, -l,  p},
-          v3[3] = { c, -l,  p},
-          v4[3] = { c,  l,  p};
+    float v1[3] = {-c, l,  p},
+          v2[3] = {-c, 0,  p},
+          v3[3] = { c, 0,  p},
+          v4[3] = { c, l,  p};
 
-    float v5[3] = { c,  l, -p},
-          v6[3] = { c, -l, -p},
-          v7[3] = {-c, -l, -p},
-          v8[3] = {-c,  l, -p};
+    float v5[3] = { c, l, -p},
+          v6[3] = { c, 0, -p},
+          v7[3] = {-c, 0, -p},
+          v8[3] = {-c, l, -p};
 
     //Face 1 - Frente
     desenha(v1,v2,v3,v4);
@@ -184,10 +172,26 @@ void cilindro()
 void desenha_carrinho_1()
 {
     glPushMatrix();
-        glColor3f(0.5,0.5,0.5);
-        glTranslatef(0,0,-10);
+        glColor3f(1.5,0.5,0.5);
+        glTranslatef(0,0,0);
         retangulo();
     glPopMatrix();
+}
+
+void Atualiza_Desenho(void)
+{
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
+
+    glTranslated(0.0,0.0,-20.0);
+    glRotated(R,1,0,0);
+   	glRotated(L,0,1,0);
+    desenha_carrinho_1();
+
+    glutPostRedisplay();
+    glutSwapBuffers();
 }
 
 void spawn_carrinho_1()
@@ -272,25 +276,6 @@ void spawn_carrinho_2()
     glPopMatrix();
 }
 
-void Atualiza_Desenho(void)
-{
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity();
-
-    glTranslated(0.0,0.0,-20.0);
-    glRotated(R,1,0,0);
-    glRotated(L,0,1,0);
-
-    glColor3f(0.5,0.5,0.5);
-    retangulo();
-    //desenha_carrinho_1();
-
-    glutPostRedisplay();
-    glutSwapBuffers();
-}
-
 void Teclado( unsigned char tecla, int x, int y)
 {
     switch (tecla)
@@ -333,7 +318,7 @@ void nova_rodada()
         g = 0.5;
         b = 0.5;
     }
-    if(numero_aleatorio == 1)   // Se o número e 1, o fundo e roxo.
+    if(numero_aleatorio == 1)   // Se o n�mero e 1, o fundo e roxo.
     {
         r = 0.5;
         g = 0.5;
@@ -358,12 +343,12 @@ void nova_rodada()
 
 void vez_jogada()
 {
-    jogada++;   // Incrementa o número da jogada.
+    jogada++;   // Incrementa o n�mero da jogada.
 }
 
 void tempo(int value)
 {
-    Tempo += 0.1;   // O tempo para utilizar na equacao de lancamento oblíquo.
+    Tempo += 0.1;   // O tempo para utilizar na equacao de lancamento obl�quo.
     glutPostRedisplay();
 }
 
@@ -537,7 +522,7 @@ void tiro_1()
             {
                 c2_cor = 0.5; // O Carrinho 2 muda de cor ao ser atingido.
                 srand(time(NULL));
-                // Gera números aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
+                // Gera n�meros aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
                 n1 = rand()%4;
                 n2 = rand()%4;
             }
@@ -546,7 +531,7 @@ void tiro_1()
             {
                 c2_cor = 0.0; // O Carrinho 2 muda de cor ao ser atingido.
                 srand(time(NULL));
-                // Gera números aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
+                // Gera n�meros aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
                 n1 = rand()%4;
                 n2 = rand()%4;
             }
@@ -638,7 +623,7 @@ void tiro_2()
             {
                 c1_cor = 0.5; // O Carrinho 1 muda de cor ao ser atingido.
                 srand(time(NULL));
-                // Gera números aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
+                // Gera n�meros aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
                 n1 = rand()%4;
                 n2 = rand()%4;
             }
@@ -647,7 +632,7 @@ void tiro_2()
             {
                 c1_cor = 0.0; // O Carrinho 1 muda de cor ao ser atingido.
                 srand(time(NULL));
-                // Gera números aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
+                // Gera n�meros aleatorios de 0 a 3, para definir as novas posicoes dos carrinhos.
                 n1 = rand()%4;
                 n2 = rand()%4;
             }
@@ -823,7 +808,7 @@ void texto()
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
-    // Gera números aleatorios de 0 a 3, para definir as posicoes dos carrinhos.
+    // Gera n�meros aleatorios de 0 a 3, para definir as posicoes dos carrinhos.
     n1 = rand()%4;
     n2 = rand()%4;
 
@@ -845,7 +830,7 @@ int main(int argc, char *argv[])
         g = 0.5;
         b = 0.5;
     }
-    if(numero_aleatorio == 1)   // Se o número e 1, o fundo e roxo.
+    if(numero_aleatorio == 1)   // Se o n�mero e 1, o fundo e roxo.
     {
         r = 0.5;
         g = 0.5;
