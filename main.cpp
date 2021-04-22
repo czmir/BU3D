@@ -32,7 +32,7 @@ float tam = 3.5f, Tempo = 0, R = 0, L = 0,
 
 int n1, n2, jogada = 0, rodada = 0, numero_aleatorio, ponto1 = 0, ponto2 = 0, ponto_1 = 0, ponto_2 = 0,
             Velocidade_1 = 30, Velocidade_2 = 30, // Velocidade inicial dos projeteis dos canhoes.
-            angulo_1 = 85, angulo_2 = 85; // Angulo inicial dos canhoes.
+            angulo_1 = 0, angulo_2 = 0; // Angulo inicial dos canhoes.
 
 bool bola1 = false, bola2 = false, colisao1 = false, colisao2 = false, vez1 = false, vez2 = false;
 
@@ -137,27 +137,68 @@ int cilindro(float raio, float comprimento)
     gluCylinder(quadratic, raio, raio, comprimento, 32, 32);
 }
 
+int cilindro_solid(float raio, float comprimento)
+{
+    GLUquadricObj *quadratic;
+    quadratic = gluNewQuadric();
+    gluCylinder(quadratic, raio, raio, comprimento, 32, 32);
+}
+
+
 void desenha_carrinho_1()
 {	
 	// Base
     glPushMatrix();
-        glColor3f(0.8,0.2,0.2);
+        glColor3f(0.2,0.2,0.8);
         glTranslatef(0,0,0);
-        bloco(4,4,6);
+        bloco(4,3,6);
     glPopMatrix();
 
     // Cima
     glPushMatrix();
-        glColor3f(0.9,0.1,0.1);
-        glTranslatef(0,4,0);
+        glColor3f(0.1,0.1,0.9);
+        glTranslatef(0,3,0);
         bloco(3,2,3);
     glPopMatrix();
 
-    // 
+    // Rodas
+    glPushMatrix();
+        glColor3f(0,0,0);
+        glTranslatef(-5,0.3,0);
+        glRotatef(90,0,1,0);
+        cilindro(1.5,10);
+    glPopMatrix();
+    glPushMatrix();
+        glColor3f(0,0,0);
+        glTranslatef(-5,0.3,3.5);
+        glRotatef(90,0,1,0);
+        cilindro(1.5,10);
+    glPopMatrix();    
+    glPushMatrix();
+        glColor3f(0,0,0);
+        glTranslatef(-5,0.3,-3.5);
+        glRotatef(90,0,1,0);
+        cilindro(1.5,10);
+    glPopMatrix();
+
+    // Cano
     glPushMatrix();
         glColor3f(0.5,0.5,0.5);
-        glTranslatef(0,5,0);
+        glTranslatef(0,4,0);
+        glRotatef(angulo_1,1,0,0);
         cilindro(0.5,10);
+    glPopMatrix();
+
+    glPushMatrix();
+    	glTranslatef(0,0,0.0);
+    	glColor3f(1,0,0);
+
+    //trajetoria_balistica_2();
+
+    if(bola1 == true)
+    {
+        tiro_1();
+    }
     glPopMatrix();
 }
 
@@ -367,7 +408,7 @@ void LeTeclado(unsigned char tecla, int x, int y)
             if(vez1 == false)   // Condicao para bloquear os controles do carrinho 1 enquanto o projetil estiver no ar.
             {
                 // Incrementa em 1 o angulo se nao estiver no limite.
-                if(angulo_1 <= 87) angulo_1 = angulo_1 + 3;
+                if(angulo_1 <= 5) angulo_1 = angulo_1 + 3;
                 glutPostRedisplay();
             }
             break;
@@ -376,7 +417,7 @@ void LeTeclado(unsigned char tecla, int x, int y)
             if(vez1 == false)   // Condicao para bloquear os controles do carrinho 1 enquanto o projetil estiver no ar.
             {
                 // Decrementa em 1 o angulo se nao estiver no limite.
-                if(angulo_1 >= -87) angulo_1 = angulo_1 - 3;
+                if(angulo_1 >= -15) angulo_1 = angulo_1 - 3;
                 glutPostRedisplay();
             }
             break;
@@ -470,8 +511,8 @@ void LeTeclado(unsigned char tecla, int x, int y)
 
 void tiro_1()
 {
-    float Voy = Velocidade_1 * sin((angulo_1 + 90)/180.0 * PI),
-          Vox = Velocidade_1 * cos((angulo_1 + 90)/180.0 * PI),
+    float Voy = Velocidade_1 * sin((angulo_1)/180.0 * PI),
+          Vox = Velocidade_1 * cos((angulo_1)/180.0 * PI),
 
           x = Vox * Tempo,
           y = Voy * Tempo - G * Tempo * Tempo / 2,
@@ -573,8 +614,8 @@ void tiro_1()
 
 void tiro_2()
 {
-    float Voy = Velocidade_2 * sin((angulo_2 + 90)/180.0 * PI),
-          Vox = Velocidade_2 * cos((angulo_2 + 90)/180.0 * PI),
+    float Voy = Velocidade_2 * sin((angulo_2)/180.0 * PI),
+          Vox = Velocidade_2 * cos((angulo_2)/180.0 * PI),
 
           x = Vox * Tempo,
           y = Voy * Tempo - G * Tempo * Tempo / 2,
@@ -674,8 +715,8 @@ void tiro_2()
 
 void trajetoria_balistica_1()
 {
-    float Voy = Velocidade_1 * sin((angulo_1 + 90)/180.0 * PI),
-          Vox = Velocidade_1 * cos((angulo_1 + 90)/180.0 * PI),
+    float Voy = Velocidade_1 * sin((angulo_1)/180.0 * PI),
+          Vox = Velocidade_1 * cos((angulo_1)/180.0 * PI),
 
           tempo = 0.0, X = 0.0, Y = 2.0;
 
@@ -690,8 +731,8 @@ void trajetoria_balistica_1()
 
 void trajetoria_balistica_2()
 {
-    float Voy = Velocidade_2 * sin((angulo_2 + 90)/180.0 * PI),
-          Vox = Velocidade_2 * cos((angulo_2 + 90)/180.0 * PI),
+    float Voy = Velocidade_2 * sin((angulo_2)/180.0 * PI),
+          Vox = Velocidade_2 * cos((angulo_2)/180.0 * PI),
 
           tempo = 0.0, X = 0.0, Y = 2.0;
 
@@ -723,7 +764,7 @@ void texto()
     if(jogada%2 == 0) // Se a jogada for par, e a vez do Player 1.
     {
         glColor3f(0.0f, 1.0f, 1.0f);
-        sprintf(buf,"Velocidade: %d m/s, Angulo: %d", Velocidade_1, angulo_1+90);
+        sprintf(buf,"Velocidade: %d m/s, Angulo: %d", Velocidade_1, angulo_1);
         renderbitmap(-58,38,GLUT_BITMAP_HELVETICA_18, buf);
     }
     // Controles do Player 1.
@@ -749,7 +790,7 @@ void texto()
     if(jogada%2 != 0)   // Se a jogada for impar, e a vez do Player 2.
     {
         glColor3f(0.5,0.0,0.0);
-        sprintf(buf,"Velocidade: %d m/s, Angulo: %d", Velocidade_2, angulo_2+90);
+        sprintf(buf,"Velocidade: %d m/s, Angulo: %d", Velocidade_2, angulo_2);
         renderbitmap(-58,38,GLUT_BITMAP_HELVETICA_18, buf);
     }
 
@@ -835,238 +876,3 @@ int main(int argc, char *argv[])
     glutMainLoop();
     return 0;
 }
-
-Skip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@czmir
-czmir /
-BU3D
-
-1
-0
-
-    0
-
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-
-    Settings
-
-BU3D/
-in
-main
-
-1
-
-/**************************************************
-
-2
-
-  Universidade Federal da Grande Dourados - UFGD
-
-3
-
-  Trabalho Computacao Grafica - Batalha Urbana 3D
-
-4
-
-  Bianca Andreia, Fabio Amaral Godoy da Silveira
-
-5
-
-**************************************************/
-
-6
-
-​
-
-7
-
-#include <GL/glut.h>
-
-8
-
-#include <stdlib.h>
-
-9
-
-#include <stdio.h>
-
-10
-
-#include <stdbool.h>
-
-11
-
-#include <math.h>
-
-12
-
-#include <time.h>
-
-13
-
-#define PI 3.14159265
-
-14
-
-#define G 9.81
-
-15
-
-​
-
-16
-
-​
-
-17
-
-void texto();
-
-18
-
-void tiro_1();
-
-19
-
-void tiro_2();
-
-20
-
-void trajetoria_balistica_1();
-
-21
-
-void trajetoria_balistica_2();
-
-22
-
-void nova_rodada();
-
-23
-
-​
-
-24
-
-​
-
-25
-
-char buf_1[100] = {0};
-
-26
-
-​
-
-27
-
-float tam = 3.5f, Tempo = 0, R = 0, L = 0,
-
-28
-
-      r, g, b,                   // Para a cor do fundo.
-
-29
-
-      c1_cor = 1,                // Para a cor do Carrinho 1.
-
-30
-
-      c2_cor = 1,                // Para a cor do Carrinho 2.
-
-31
-
-      c1_1, c1_2, c2_1, c2_2;    // Coordenadas de spawn dos carrinhos.
-
-32
-
-​
-
-33
-
-int n1, n2, jogada = 0, rodada = 0, numero_aleatorio, ponto1 = 0, ponto2 = 0, ponto_1 = 0, ponto_2 = 0,
-
-34
-
-            Velocidade_1 = 30, Velocidade_2 = 30, // Velocidade inicial dos projeteis dos canhoes.
-
-35
-
-            angulo_1 = 85, angulo_2 = 85; // Angulo inicial dos canhoes.
-
-36
-
-​
-
-37
-
-bool bola1 = false, bola2 = false, colisao1 = false, colisao2 = false, vez1 = false, vez2 = false;
-
-38
-
-​
-
-39
-
-​
-
-40
-
-void Atualiza_Tamanho(int w, int h)
-
-41
-
-{
-
-42
-
-    glViewport(0, 0, w, h);
-
-43
-
-    float aspect = (float)w / (float)h;
-
-44
-
-​
-
-45
-
-    glMatrixMode(GL_PROJECTION);
-
-46
-
-    glLoadIdentity();
-
-@czmir
-Commit changes
-Commit summary
-Optional extended description
-Commit directly to the main branch.
-Create a new branch for this commit and start a pull request. Learn more about pull requests.
-
-    © 2021 GitHub, Inc.
-    Terms
-    Privacy
-    Security
-    Status
-    Docs
-
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
-
