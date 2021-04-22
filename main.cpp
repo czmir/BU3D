@@ -32,7 +32,7 @@ float tam = 3.5f, Tempo = 0, R = 0, L = 0,
 
 int n1, n2, jogada = 0, rodada = 0, numero_aleatorio, ponto1 = 0, ponto2 = 0, ponto_1 = 0, ponto_2 = 0,
             Velocidade_1 = 30, Velocidade_2 = 30, // Velocidade inicial dos projeteis dos canhoes.
-            angulo_1 = 0, angulo_2 = 0; // Angulo inicial dos canhoes.
+            angulo_1 = 2, angulo_1a = 2, angulo_2 = 2, angulo_2a = 2; // Angulo inicial dos canhoes.
 
 bool bola1 = false, bola2 = false, colisao1 = false, colisao2 = false, vez1 = false, vez2 = false;
 
@@ -145,20 +145,18 @@ int cilindro_solid(float raio, float comprimento)
 }
 
 
+void bomba()
+{
+	glutSolidSphere(1,10,10);
+}
+
 void desenha_carrinho_1()
 {	
 	// Base
     glPushMatrix();
-        glColor3f(0.2,0.2,0.8);
+        glColor3f(0.2,0.2,0.5);
         glTranslatef(0,0,0);
         bloco(4,3,6);
-    glPopMatrix();
-
-    // Cima
-    glPushMatrix();
-        glColor3f(0.1,0.1,0.9);
-        glTranslatef(0,3,0);
-        bloco(3,2,3);
     glPopMatrix();
 
     // Rodas
@@ -167,38 +165,126 @@ void desenha_carrinho_1()
         glTranslatef(-5,0.3,0);
         glRotatef(90,0,1,0);
         cilindro(1.5,10);
+        eixo();
+        glTranslatef(0,0,10);
+        eixo();
     glPopMatrix();
+
     glPushMatrix();
         glColor3f(0,0,0);
         glTranslatef(-5,0.3,3.5);
         glRotatef(90,0,1,0);
         cilindro(1.5,10);
-    glPopMatrix();    
+        eixo();
+        glTranslatef(0,0,10);
+        eixo();
+    glPopMatrix(); 
+
     glPushMatrix();
         glColor3f(0,0,0);
         glTranslatef(-5,0.3,-3.5);
         glRotatef(90,0,1,0);
         cilindro(1.5,10);
+        eixo();
+        glTranslatef(0,0,10);
+        eixo();
     glPopMatrix();
 
-    // Cano
+    // Cima
     glPushMatrix();
-        glColor3f(0.5,0.5,0.5);
-        glTranslatef(0,4,0);
-        glRotatef(angulo_1,1,0,0);
+        glColor3f(0.3,0.3,0.5);
+        glTranslatef(0,3,0);
+        glRotatef(angulo_1a,0,1,0);
+        bloco(3,2,3);
+
+    // Cano
+		glColor3f(0.1,0.1,0.1);
+        glTranslatef(0,1,0);
+        glRotatef(angulo_1*(-1),1,0,0);
         cilindro(0.5,10);
     glPopMatrix();
 
     glPushMatrix();
-    	glTranslatef(0,0,0.0);
+  	  	glRotatef(angulo_1a,0,1,0);
+    	glTranslatef(0,2,0);
+    	glRotatef(-90,0,1,0);
+    	glColor3f(0,0,1);
+
+    	trajetoria_balistica_1();
+
+    	if(bola1 == true)
+	    {
+	        tiro_1();
+	    }
+    glPopMatrix();
+}
+
+void desenha_carrinho_2()
+{	
+	// Base
+    glPushMatrix();
+        glColor3f(0.5,0.2,0.2);
+        glTranslatef(0,0,0);
+        bloco(4,3,6);
+    glPopMatrix();
+
+    // Rodas
+    glPushMatrix();
+        glColor3f(0,0,0);
+        glTranslatef(-5,0.3,0);
+        glRotatef(90,0,1,0);
+        cilindro(1.5,10);
+        eixo();
+        glTranslatef(0,0,10);
+        eixo();
+    glPopMatrix();
+
+    glPushMatrix();
+        glColor3f(0,0,0);
+        glTranslatef(-5,0.3,3.5);
+        glRotatef(90,0,1,0);
+        cilindro(1.5,10);
+        eixo();
+        glTranslatef(0,0,10);
+        eixo();
+    glPopMatrix(); 
+
+    glPushMatrix();
+        glColor3f(0,0,0);
+        glTranslatef(-5,0.3,-3.5);
+        glRotatef(90,0,1,0);
+        cilindro(1.5,10);
+        eixo();
+        glTranslatef(0,0,10);
+        eixo();
+    glPopMatrix();
+
+    // Cima
+    glPushMatrix();
+        glColor3f(0.5,0.1,0.1);
+        glTranslatef(0,3,0);
+        glRotatef(angulo_2a,0,1,0);
+        bloco(3,2,3);
+
+    // Cano
+		glColor3f(0.1,0.1,0.1);
+        glTranslatef(0,1,0);
+        glRotatef(angulo_2*(-1),1,0,0);
+        cilindro(0.5,10);
+    glPopMatrix();
+
+    glPushMatrix();
+    	glRotatef(angulo_2a,0,1,0);
+    	glTranslatef(0,2,0);
+    	glRotatef(-90,0,1,0);
     	glColor3f(1,0,0);
 
-    //trajetoria_balistica_2();
+    	trajetoria_balistica_2();
 
-    if(bola1 == true)
-    {
-        tiro_1();
-    }
+    	if(bola2 == true)
+	    {
+	        tiro_2();
+	    }
     glPopMatrix();
 }
 
@@ -218,6 +304,10 @@ void Atualiza_Desenho(void)
     glRotated(R,1,0,0);
    	glRotated(L,0,1,0);
     desenha_carrinho_1();
+
+    glTranslated(0.0,0.0,-20.0);
+    desenha_carrinho_2();
+
 
     glutPostRedisplay();
     glutSwapBuffers();
@@ -364,19 +454,19 @@ void LeTeclado(unsigned char tecla, int x, int y)
 	switch (tecla)
     {
     	case 'r':	// Rotaciona objeto.
-        	R+=1;
+        	R+=3;
         	break;
 
     	case 't':
-        	L+=1;
+        	L+=3;
         	break;
 
     	case 'y':
-        	R-=1;
+        	R-=3;
         	break;
 
     	case 'u':
-        	L-=1;
+        	L-=3;
         	break;
     }
 
@@ -407,8 +497,8 @@ void LeTeclado(unsigned char tecla, int x, int y)
         case 'a':
             if(vez1 == false)   // Condicao para bloquear os controles do carrinho 1 enquanto o projetil estiver no ar.
             {
-                // Incrementa em 1 o angulo se nao estiver no limite.
-                if(angulo_1 <= 5) angulo_1 = angulo_1 + 3;
+                // Incrementa em 2 o angulo se nao estiver no limite.
+                if(angulo_1 <= 14) angulo_1 = angulo_1 + 2;
                 glutPostRedisplay();
             }
             break;
@@ -416,8 +506,26 @@ void LeTeclado(unsigned char tecla, int x, int y)
         case 'd':
             if(vez1 == false)   // Condicao para bloquear os controles do carrinho 1 enquanto o projetil estiver no ar.
             {
-                // Decrementa em 1 o angulo se nao estiver no limite.
-                if(angulo_1 >= -15) angulo_1 = angulo_1 - 3;
+                // Decrementa em 2 o angulo se nao estiver no limite.
+                if(angulo_1 >= 1) angulo_1 = angulo_1 - 2;
+                glutPostRedisplay();
+            }
+            break;
+
+        case '1':
+            if(vez1 == false)   // Condicao para bloquear os controles do carrinho 1 enquanto o projetil estiver no ar.
+            {
+                // Incrementa em 3 o angulo se nao estiver no limite.
+                if(angulo_1a <= 180) angulo_1a = angulo_1a + 3;
+                glutPostRedisplay();
+            }
+            break;
+
+        case '3':
+            if(vez1 == false)   // Condicao para bloquear os controles do carrinho 1 enquanto o projetil estiver no ar.
+            {
+                // Decrementa em 3 o angulo se nao estiver no limite.
+                if(angulo_1a >= -180) angulo_1a = angulo_1a - 3;
                 glutPostRedisplay();
             }
             break;
@@ -435,7 +543,7 @@ void LeTeclado(unsigned char tecla, int x, int y)
             if(vez1 == false)   // Condicao para bloquear os controles do carrinho 1 enquanto o projetil estiver no ar.
             {
                 // Decrementa em 1 a velocidade do canhao 1.
-                if(Velocidade_1 >= 1) Velocidade_1 = Velocidade_1 - 1;
+                if(Velocidade_1 >= 30) Velocidade_1 = Velocidade_1 - 1;
                 glutPostRedisplay();
             }
             break;
@@ -462,8 +570,8 @@ void LeTeclado(unsigned char tecla, int x, int y)
         case 'j':
             if(vez2 == false) // Condicao para bloquear os controles do carrinho 2 enquanto o projetil estiver no ar.
             {
-                // Incrementa em 1 o angulo se nao estiver no limite.
-                if(angulo_2 <= 87) angulo_2 = angulo_2 + 3;
+                // Incrementa em 2 o angulo se nao estiver no limite.
+                if(angulo_2 <= 14) angulo_2 = angulo_2 + 2;
                 glutPostRedisplay();
             }
             break;
@@ -471,8 +579,26 @@ void LeTeclado(unsigned char tecla, int x, int y)
         case 'l':
             if(vez2 == false)   // Condicao para bloquear os controles do carrinho 2 enquanto o projetil estiver no ar.
             {
-                // Decrementa em 1 o angulo se nao estiver no limite.
-                if(angulo_2 >= -87) angulo_2 = angulo_2 - 3;
+                // Decrementa em 2 o angulo se nao estiver no limite.
+                if(angulo_2 >= 1) angulo_2 = angulo_2 - 2;
+                glutPostRedisplay();
+            }
+            break;
+
+        case '8':
+            if(vez2 == false)   // Condicao para bloquear os controles do carrinho 1 enquanto o projetil estiver no ar.
+            {
+                // Incrementa em 3 o angulo se nao estiver no limite.
+                if(angulo_2a <= 180) angulo_2a = angulo_2a + 3;
+                glutPostRedisplay();
+            }
+            break;
+
+        case '0':
+            if(vez2 == false)   // Condicao para bloquear os controles do carrinho 1 enquanto o projetil estiver no ar.
+            {
+                // Decrementa em 3 o angulo se nao estiver no limite.
+                if(angulo_2a >= -180) angulo_2a = angulo_2a - 3;
                 glutPostRedisplay();
             }
             break;
@@ -490,7 +616,7 @@ void LeTeclado(unsigned char tecla, int x, int y)
             if(vez2 == false)   // Condicao para bloquear os controles do carrinho 2 enquanto o projetil estiver no ar.
             {
                 // Decrementa em 1 a velocidade do canhao 2.
-                if(Velocidade_2 >= 1) Velocidade_2 = Velocidade_2 - 1;
+                if(Velocidade_2 >= 30) Velocidade_2 = Velocidade_2 - 1;
                 glutPostRedisplay();
             }
             break;
@@ -530,9 +656,9 @@ void tiro_1()
     if(posicao_x >= -400.00 && posicao_y >= -50.00 && posicao_x <= 400.00)
     {
         glTranslatef(posicao_x, posicao_y, 0.0);
-        eixo();
+        bomba();
         glutTimerFunc(30, tempo, 0);
-
+        /*
         // Verifica se acertou o carrinho 2.
         if(posicao_x+c1_1 >= c2_1-4 && posicao_x+c1_1 <= c2_1+4 && posicao_y+c1_2 >= c2_2-2 && posicao_y+c1_2 <= c2_2+6)
         {
@@ -602,7 +728,7 @@ void tiro_1()
             bola1 = false;  // Colidiu nos predios ou nas bordas laterais/inferior, entao sai da condicao de tiro.
             Tempo = 0;
             vez_jogada();   // Alterna jogada.
-        }
+        }*/
     }
     else
     {
@@ -633,9 +759,9 @@ void tiro_2()
     if(posicao_x >= -400.00 && posicao_y >= -50.00 && posicao_x <= 400.00)
     {
         glTranslatef(posicao_x, posicao_y, 0.0);
-        eixo();
+        bomba();
         glutTimerFunc(30, tempo, 0);
-
+        /*
         if(posicao_x+c2_1 >= c1_1-4 && posicao_x+c2_1 <= c1_1+4 && posicao_y+c2_2 >= c1_2-2 && posicao_y+c2_2 <= c1_2+6)
         {
             colisao2 = true;
@@ -703,7 +829,7 @@ void tiro_2()
             bola2 = false;  // Colidiu nos predios ou nas bordas laterais/inferior, entao sai da condicao de tiro.
             Tempo = 0;
             vez_jogada();   // Alterna jogada.
-        }
+        }*/
     }
     else
     {
@@ -715,8 +841,8 @@ void tiro_2()
 
 void trajetoria_balistica_1()
 {
-    float Voy = Velocidade_1 * sin((angulo_1)/180.0 * PI),
-          Vox = Velocidade_1 * cos((angulo_1)/180.0 * PI),
+    float Voy = Velocidade_1 * sin((angulo_1+2)/180.0 * PI),
+          Vox = Velocidade_1 * cos((angulo_1+2)/180.0 * PI),
 
           tempo = 0.0, X = 0.0, Y = 2.0;
 
@@ -731,8 +857,8 @@ void trajetoria_balistica_1()
 
 void trajetoria_balistica_2()
 {
-    float Voy = Velocidade_2 * sin((angulo_2)/180.0 * PI),
-          Vox = Velocidade_2 * cos((angulo_2)/180.0 * PI),
+    float Voy = Velocidade_2 * sin((angulo_2+2)/180.0 * PI),
+          Vox = Velocidade_2 * cos((angulo_2+2)/180.0 * PI),
 
           tempo = 0.0, X = 0.0, Y = 2.0;
 
@@ -755,7 +881,6 @@ void renderbitmap(float x, float y, void *font, char* string)
         glutBitmapCharacter(font, *c);
     }
 }
-
 
 void texto()
 {
