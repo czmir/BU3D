@@ -22,7 +22,7 @@ void trajetoria_balistica_2();
 void nova_rodada();
 
 
-char buf_1[100] = {0};				
+char buf_1[100] = {0};
 
 float tam = 3.5f, Tempo = 0, R = 24, L = -27, I = -12, K = 6, A = -15,
       r, g, b,                   	// Para a cor do fundo.
@@ -61,7 +61,7 @@ void desenha(float p1[3], float p2[3], float p3[3], float p4[3])
 
 void desenha_contorno(float p1[3], float p2[3], float p3[3], float p4[3])
 {
-    
+
     glBegin(GL_LINE_LOOP);
     	glVertex3fv(p1);
    		glVertex3fv(p2);
@@ -143,7 +143,7 @@ void bomba()
 }
 
 void desenha_carrinho_1()
-{	
+{
 	// Base
     glPushMatrix();
         glColor3f(0.2,0.2,0.5);
@@ -170,7 +170,7 @@ void desenha_carrinho_1()
         eixo();
         glTranslatef(0,0,10);
         eixo();
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
         glColor3f(0,0,0);
@@ -212,7 +212,7 @@ void desenha_carrinho_1()
 }
 
 void desenha_carrinho_2()
-{	
+{
 	// Base
     glPushMatrix();
         glColor3f(0.5,0.2,0.2);
@@ -239,7 +239,7 @@ void desenha_carrinho_2()
         eixo();
         glTranslatef(0,0,10);
         eixo();
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
         glColor3f(0,0,0);
@@ -396,104 +396,104 @@ void desenha_cidade()
     glPushMatrix();
 	    glTranslatef(0,0,30*1.5);
 	    desenha_predio_menor(); // Predio 2
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(0,0,50*1.5);
 	    desenha_predio_maior(); // Predio 3
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(0,0,70*1.5);
 	    desenha_predio_menor(); // Predio 4
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(0,0,90*1.5);
 	    desenha_predio_maior(); // Predio 5
-    glPopMatrix(); 
+    glPopMatrix();
 
 
     glPushMatrix();
 	    glTranslatef(20*1.5,0,30*1.5);
 	    desenha_predio_maior(); // Predio 2
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(20*1.5,0,50*1.5);
 	    desenha_predio_alto(); // Predio 3
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(20*1.5,0,70*1.5);
 	    desenha_predio_maior(); // Predio 4
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(20*1.5,0,90*1.5);
 	    desenha_predio_maior(); // Predio 5
-    glPopMatrix(); 
+    glPopMatrix();
 
 
     glPushMatrix();
 	    glTranslatef(-20*1.5,0,10*1.5);
 	    desenha_predio_alto(); // Predio 6
-    glPopMatrix();  
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(-20*1.5,0,30*1.5);
 	    desenha_predio_maior(); // Predio 7
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(-20*1.5,0,50*1.5);
 	    desenha_predio_menor(); // Predio 8
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(-20*1.5,0,70*1.5);
 	    desenha_predio_alto(); // Predio 9
-    glPopMatrix();   
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(-20*1.5,0,90*1.5);
 	    desenha_predio_menor(); // Predio 10
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(-40*1.5,0,90*1.5);
 	    desenha_predio_menor(); // Predio 11
-    glPopMatrix(); 
+    glPopMatrix();
 
 
     glPushMatrix();
 	    glTranslatef(-80*1.5,0,10*1.5);
 	    desenha_predio_maior(); // Predio 12
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(-80*1.5,0,30*1.5);
 	    desenha_predio_alto(); // Predio 13
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(-80*1.5,0,50*1.5);
 	    desenha_predio_menor(); // Predio 14
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(-80*1.5,0,70*1.5);
 	    desenha_predio_menor(); // Predio 15
-    glPopMatrix(); 
+    glPopMatrix();
 
     glPushMatrix();
 	    glTranslatef(-80*1.5,0,90*1.5);
 	    desenha_predio_alto(); // Predio 16
-    glPopMatrix(); 
-}    
+    glPopMatrix();
+}
 
 void camera()
-{	
+{
     glRotated(20+I,1,0,0);
    	glRotated(210+K,0,1,0);
 	glTranslated(L,A,-20.0+R);
@@ -521,7 +521,7 @@ void Atualiza_Desenho(void)
     glPushMatrix();
     	desenha_carrinho_1();
     glPopMatrix();
-    
+
     glTranslated(0.0,22.0,45.0);
     glRotated(180,0,1,0);
     desenha_carrinho_2();
@@ -585,7 +585,7 @@ void tempo(int value)
 }
 
 void LeTeclado(unsigned char tecla, int x, int y)
-{	
+{
 
 	switch (tecla)
     {
@@ -627,7 +627,7 @@ void LeTeclado(unsigned char tecla, int x, int y)
 
     	case 'z':
         	A-=3;
-        	break;        	
+        	break;
     }
 
     switch (tecla)
@@ -820,8 +820,8 @@ void tiro_1()
         glutTimerFunc(30, tempo, 0);
         /*
         // Verifica se acertou o carrinho 2.
-        if(	   posicao_x+c1_1 >= c2_1-4 && posicao_x+c1_1 <= c2_1+4 
-        	&& posicao_y+c1_2 >= c2_2-2 && posicao_y+c1_2 <= c2_2+6 
+        if(	   posicao_x+c1_1 >= c2_1-4 && posicao_x+c1_1 <= c2_1+4
+        	&& posicao_y+c1_2 >= c2_2-2 && posicao_y+c1_2 <= c2_2+6
         	&& posicao_x+c1_3 >= c2_3-2 && posicao_x+c1_3 <= c2_3+6
         	&& posicao_y+c1_3 >= c2_2-2 && posicao_y+c1_3 <= c2_2+6)
         {
@@ -1112,10 +1112,10 @@ void texto()
     sprintf(buf,"- ANGULO 1:         L");
     glColor3f(0.5,0.0,0.0);
     renderbitmap(-5,3.6,GLUT_BITMAP_HELVETICA_10, buf);
-    sprintf(buf,"+ ANGULO 2:         J");
+    sprintf(buf,"+ ANGULO 2:         U");
     glColor3f(0.5,0.0,0.0);;
     renderbitmap(-5,3.4,GLUT_BITMAP_HELVETICA_10, buf);
-    sprintf(buf,"- ANGULO 2:         L");
+    sprintf(buf,"- ANGULO 2:         O");
     glColor3f(0.5,0.0,0.0);
     renderbitmap(-5,3.2,GLUT_BITMAP_HELVETICA_10, buf);
     sprintf(buf,"ATIRAR:                  H");
