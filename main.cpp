@@ -24,13 +24,14 @@ void nova_rodada();
 
 char buf_1[100] = {0};
 
-float tam = 3.5f, Tempo = 0, R = 24, L = -27, I = -12, K = 6, A = -15,
+float tam = 3.5f, Tempo = 0, R = 20, L = -27, I = -12, K = 6, A = -15,
       r, g, b,                   	// Para a cor do fundo.
       c1_cor = 1,                	// Para a cor do Carrinho 1.
       c2_cor = 1,                	// Para a cor do Carrinho 2.
-      c1_1, c1_2, c2_1, c2_2;    	// Coordenadas de spawn dos carrinhos.
+      c1_1, c1_2, c2_1, c2_2,    	// Coordenadas de spawn dos carrinhos.
+      c1_3, c2_3;
 
-int n1, n2, jogada = 0, rodada = 0, numero_aleatorio, ponto1 = 0, ponto2 = 0, ponto_1 = 0, ponto_2 = 0,
+int n1, n2, jogada = 0, rodada = 0, numero_aleatorio, ponto1 = 0, ponto2 = 0, ponto_1 = 0, ponto_2 = 0, cam = 1,
             Velocidade_1 = 30, Velocidade_2 = 30, // Velocidade inicial dos projeteis dos canhoes.
             angulo_1 = 2, angulo_1a = 2, angulo_2 = 2, angulo_2a = 2; // Angulo inicial dos canhoes.
 
@@ -52,10 +53,10 @@ void Atualiza_Tamanho(int w, int h)
 void desenha(float p1[3], float p2[3], float p3[3], float p4[3])
 {
     glBegin(GL_QUADS);
-    	glVertex3fv(p1);
-    	glVertex3fv(p2);
-    	glVertex3fv(p3);
-    	glVertex3fv(p4);
+    glVertex3fv(p1);
+    glVertex3fv(p2);
+    glVertex3fv(p3);
+    glVertex3fv(p4);
     glEnd();
 }
 
@@ -63,26 +64,25 @@ void desenha_contorno(float p1[3], float p2[3], float p3[3], float p4[3])
 {
 
     glBegin(GL_LINE_LOOP);
-    	glVertex3fv(p1);
-   		glVertex3fv(p2);
-    	glVertex3fv(p3);
-    	glVertex3fv(p4);
+    glVertex3fv(p1);
+    glVertex3fv(p2);
+    glVertex3fv(p3);
+    glVertex3fv(p4);
     glEnd();
 }
-
 
 int bloco(float c, float l, float p)
 {
 
     float v1[3] = {-c, l,  p},
-          v2[3] = {-c, 0,  p},
-          v3[3] = { c, 0,  p},
-          v4[3] = { c, l,  p};
+                  v2[3] = {-c, 0,  p},
+                          v3[3] = { c, 0,  p},
+                                  v4[3] = { c, l,  p};
 
     float v5[3] = { c, l, -p},
-          v6[3] = { c, 0, -p},
-          v7[3] = {-c, 0, -p},
-          v8[3] = {-c, l, -p};
+                  v6[3] = { c, 0, -p},
+                          v7[3] = {-c, 0, -p},
+                                  v8[3] = {-c, l, -p};
 
     //Face 1 - Frente
     desenha(v1,v2,v3,v4);
@@ -102,7 +102,6 @@ int bloco(float c, float l, float p)
     //Face 6 - Baixo
     desenha(v2,v3,v6,v7);
 }
-
 
 void eixo()
 {
@@ -139,144 +138,144 @@ int cilindro(float raio, float comprimento)
 
 void bomba()
 {
-	glutSolidSphere(1,10,10);
+    glutSolidSphere(1,10,10);
 }
 
 void desenha_carrinho_1()
 {
-	// Base
+    // Base
     glPushMatrix();
-        glColor3f(0.2,0.2,0.5);
-        glTranslatef(0,0,0);
-        bloco(4,3,6);
+    glColor3f(0.2,0.2,0.5);
+    glTranslatef(0,0,0);
+    bloco(4,3,6);
     glPopMatrix();
 
     // Rodas
     glPushMatrix();
-        glColor3f(0,0,0);
-        glTranslatef(-5,0.3,0);
-        glRotatef(90,0,1,0);
-        cilindro(1.5,10);
-        eixo();
-        glTranslatef(0,0,10);
-        eixo();
+    glColor3f(0,0,0);
+    glTranslatef(-5,0.3,0);
+    glRotatef(90,0,1,0);
+    cilindro(1.5,10);
+    eixo();
+    glTranslatef(0,0,10);
+    eixo();
     glPopMatrix();
 
     glPushMatrix();
-        glColor3f(0,0,0);
-        glTranslatef(-5,0.3,3.5);
-        glRotatef(90,0,1,0);
-        cilindro(1.5,10);
-        eixo();
-        glTranslatef(0,0,10);
-        eixo();
+    glColor3f(0,0,0);
+    glTranslatef(-5,0.3,3.5);
+    glRotatef(90,0,1,0);
+    cilindro(1.5,10);
+    eixo();
+    glTranslatef(0,0,10);
+    eixo();
     glPopMatrix();
 
     glPushMatrix();
-        glColor3f(0,0,0);
-        glTranslatef(-5,0.3,-3.5);
-        glRotatef(90,0,1,0);
-        cilindro(1.5,10);
-        eixo();
-        glTranslatef(0,0,10);
-        eixo();
+    glColor3f(0,0,0);
+    glTranslatef(-5,0.3,-3.5);
+    glRotatef(90,0,1,0);
+    cilindro(1.5,10);
+    eixo();
+    glTranslatef(0,0,10);
+    eixo();
     glPopMatrix();
 
     // Cima
     glPushMatrix();
-        glColor3f(0.3,0.3,0.5);
-        glTranslatef(0,3,0);
-        glRotatef(angulo_1a,0,1,0);
-        bloco(3,2,3);
+    glColor3f(0.3,0.3,0.5);
+    glTranslatef(0,3,0);
+    glRotatef(angulo_1a,0,1,0);
+    bloco(3,2,3);
 
     // Cano
-		glColor3f(0.1,0.1,0.1);
-        glTranslatef(0,1,0);
-        glRotatef(angulo_1*(-1),1,0,0);
-        cilindro(0.5,10);
+    glColor3f(0.1,0.1,0.1);
+    glTranslatef(0,1,0);
+    glRotatef(angulo_1*(-1),1,0,0);
+    cilindro(0.5,10);
     glPopMatrix();
 
     glPushMatrix();
-  	  	glRotatef(angulo_1a,0,1,0);
-    	glTranslatef(0,2,0);
-    	glRotatef(-90,0,1,0);
-    	glColor3f(0,0,1);
+    glRotatef(angulo_1a,0,1,0);
+    glTranslatef(0,2,0);
+    glRotatef(-90,0,1,0);
+    glColor3f(0,0,1);
 
-    	trajetoria_balistica_1();
+    trajetoria_balistica_1();
 
-    	if(bola1 == true)
-	    {
-	        tiro_1();
-	    }
+    if(bola1 == true)
+    {
+        tiro_1();
+    }
     glPopMatrix();
 }
 
 void desenha_carrinho_2()
 {
-	// Base
+    // Base
     glPushMatrix();
-        glColor3f(0.5,0.2,0.2);
-        glTranslatef(0,0,0);
-        bloco(4,3,6);
+    glColor3f(0.5,0.2,0.2);
+    glTranslatef(0,0,0);
+    bloco(4,3,6);
     glPopMatrix();
 
     // Rodas
     glPushMatrix();
-        glColor3f(0,0,0);
-        glTranslatef(-5,0.3,0);
-        glRotatef(90,0,1,0);
-        cilindro(1.5,10);
-        eixo();
-        glTranslatef(0,0,10);
-        eixo();
+    glColor3f(0,0,0);
+    glTranslatef(-5,0.3,0);
+    glRotatef(90,0,1,0);
+    cilindro(1.5,10);
+    eixo();
+    glTranslatef(0,0,10);
+    eixo();
     glPopMatrix();
 
     glPushMatrix();
-        glColor3f(0,0,0);
-        glTranslatef(-5,0.3,3.5);
-        glRotatef(90,0,1,0);
-        cilindro(1.5,10);
-        eixo();
-        glTranslatef(0,0,10);
-        eixo();
+    glColor3f(0,0,0);
+    glTranslatef(-5,0.3,3.5);
+    glRotatef(90,0,1,0);
+    cilindro(1.5,10);
+    eixo();
+    glTranslatef(0,0,10);
+    eixo();
     glPopMatrix();
 
     glPushMatrix();
-        glColor3f(0,0,0);
-        glTranslatef(-5,0.3,-3.5);
-        glRotatef(90,0,1,0);
-        cilindro(1.5,10);
-        eixo();
-        glTranslatef(0,0,10);
-        eixo();
+    glColor3f(0,0,0);
+    glTranslatef(-5,0.3,-3.5);
+    glRotatef(90,0,1,0);
+    cilindro(1.5,10);
+    eixo();
+    glTranslatef(0,0,10);
+    eixo();
     glPopMatrix();
 
     // Cima
     glPushMatrix();
-        glColor3f(0.5,0.1,0.1);
-        glTranslatef(0,3,0);
-        glRotatef(angulo_2a,0,1,0);
-        bloco(3,2,3);
+    glColor3f(0.5,0.1,0.1);
+    glTranslatef(0,3,0);
+    glRotatef(angulo_2a,0,1,0);
+    bloco(3,2,3);
 
     // Cano
-		glColor3f(0.1,0.1,0.1);
-        glTranslatef(0,1,0);
-        glRotatef(angulo_2*(-1),1,0,0);
-        cilindro(0.5,10);
+    glColor3f(0.1,0.1,0.1);
+    glTranslatef(0,1,0);
+    glRotatef(angulo_2*(-1),1,0,0);
+    cilindro(0.5,10);
     glPopMatrix();
 
     glPushMatrix();
-    	glRotatef(angulo_2a,0,1,0);
-    	glTranslatef(0,2,0);
-    	glRotatef(-90,0,1,0);
-    	glColor3f(1,0,0);
+    glRotatef(angulo_2a,0,1,0);
+    glTranslatef(0,2,0);
+    glRotatef(-90,0,1,0);
+    glColor3f(1,0,0);
 
-    	trajetoria_balistica_2();
+    trajetoria_balistica_2();
 
-    	if(bola2 == true)
-	    {
-	        tiro_2();
-	    }
+    if(bola2 == true)
+    {
+        tiro_2();
+    }
     glPopMatrix();
 }
 
@@ -288,33 +287,37 @@ void spawn_carrinho_1()
     {
     case 0:
         // Posicao 1.
-        glTranslatef(-123,-16,0.0);
-        c1_1 = -123;
-        c1_2 = -16;
+        glTranslatef(-30,51,15);
+        c1_1 = -30;
+        c1_2 = 51;
+        c1_3 = 15;
         desenha_carrinho_1();
         break;
 
     case 1:
         // Posicao 2.
-        glTranslatef(-90,7,0.0);
-        c1_1 = -90;
-        c1_2 = 7;
+        glTranslatef(-60,21,75);
+        c1_1 = -60;
+        c1_2 = 21;
+        c1_3 = 75;
         desenha_carrinho_1();
         break;
 
     case 2:
         // Posicao 3.
-        glTranslatef(-17,-16,0.0);
-        c1_1 = -17;
-        c1_2 = -16;
+        glTranslatef(-120,21,105);
+        c1_1 = -120;
+        c1_2 = 21;
+        c1_3 = 105;
         desenha_carrinho_1();
         break;
 
     case 3:
         // Posicao 4.
-        glTranslatef(150,11,0.0);
-        c1_1 = 150;
-        c1_2 = 11;
+        glTranslatef(-60,21,135);
+        c1_1 = -60;
+        c1_2 = 21;
+        c1_3 = 135;
         desenha_carrinho_1();
         break;
     }
@@ -329,33 +332,37 @@ void spawn_carrinho_2()
     {
     case 0:
         // Posicao 1.
-        glTranslatef(-180,7.7,0.0);
-        c2_1 = -180;
-        c2_2 = 7.7;
+        glTranslated(0.0,21.0,45.0);
+        c2_1 = 0.0;
+        c2_2 = 21.0;
+        c2_3 = 45.0;
         desenha_carrinho_2();
         break;
 
     case 1:
         // Posicao 2.
-        glTranslatef(60,7.7,0.0);
-        c2_1 = 60;
-        c2_2 = 7.7;
+        glTranslated(0.0,21.0,105.0);
+        c2_1 = 0.0;
+        c2_2 = 21.0;
+        c2_3 = 105.0;
         desenha_carrinho_2();
         break;
 
     case 2:
         // Posicao 3.
-        glTranslatef(120,-16,0.0);
-        c2_1 = 120;
-        c2_2 = -16;
+        glTranslated(-120.0,31.0,15.0);
+        c2_1 = -120.0;
+        c2_2 = 31.0;
+        c2_3 = 15.0;
         desenha_carrinho_2();
         break;
 
     case 3:
         // Posicao 4.
-        glTranslatef(180,7.7,0.0);
-        c2_1 = 180;
-        c2_2 = 7.7;
+        glTranslated(30,31.0,135.0);
+        c2_1 = 30;
+        c2_2 = 31;
+        c2_3 = 135;
         desenha_carrinho_2();
         break;
     }
@@ -364,168 +371,226 @@ void spawn_carrinho_2()
 
 void desenha_predio_maior()
 {
-	glPushMatrix();
-		glColor3f(0,0,0);
-		bloco(8,30,8);
-	glPopMatrix();
+    glPushMatrix();
+    glColor3f(0,0,0);
+    bloco(8,30,8);
+    glPopMatrix();
 }
 
 void desenha_predio_menor()
 {
-	glPushMatrix();
-		glColor3f(0.2,0.2,0.2);
-		bloco(8,20,8);
-	glPopMatrix();
+    glPushMatrix();
+    glColor3f(0.2,0.2,0.2);
+    bloco(8,20,8);
+    glPopMatrix();
 }
 
 void desenha_predio_alto()
 {
-	glPushMatrix();
-		glColor3f(0.5,0.5,0.5);
-		bloco(8,50,8);
-	glPopMatrix();
+    glPushMatrix();
+    glColor3f(0.5,0.5,0.5);
+    bloco(8,50,8);
+    glPopMatrix();
 }
 
 void desenha_cidade()
 {
     glPushMatrix();
-	    glTranslatef(0,0,10);
-	    //desenha_predio_maior(); // Predio 1
+    glTranslatef(0,0,10);
+    //desenha_predio_maior(); // Predio 1
     glPopMatrix();
 
     glPushMatrix();
-	    glTranslatef(0,0,30*1.5);
-	    desenha_predio_menor(); // Predio 2
+    glTranslatef(0,0,30*1.5);
+    desenha_predio_menor(); // Predio 2
     glPopMatrix();
 
     glPushMatrix();
-	    glTranslatef(0,0,50*1.5);
-	    desenha_predio_maior(); // Predio 3
+    glTranslatef(0,0,50*1.5);
+    desenha_predio_maior(); // Predio 3
     glPopMatrix();
 
     glPushMatrix();
-	    glTranslatef(0,0,70*1.5);
-	    desenha_predio_menor(); // Predio 4
+    glTranslatef(0,0,70*1.5);
+    desenha_predio_menor(); // Predio 4
     glPopMatrix();
 
     glPushMatrix();
-	    glTranslatef(0,0,90*1.5);
-	    desenha_predio_maior(); // Predio 5
-    glPopMatrix();
-
-
-    glPushMatrix();
-	    glTranslatef(20*1.5,0,30*1.5);
-	    desenha_predio_maior(); // Predio 2
-    glPopMatrix();
-
-    glPushMatrix();
-	    glTranslatef(20*1.5,0,50*1.5);
-	    desenha_predio_alto(); // Predio 3
-    glPopMatrix();
-
-    glPushMatrix();
-	    glTranslatef(20*1.5,0,70*1.5);
-	    desenha_predio_maior(); // Predio 4
-    glPopMatrix();
-
-    glPushMatrix();
-	    glTranslatef(20*1.5,0,90*1.5);
-	    desenha_predio_maior(); // Predio 5
+    glTranslatef(0,0,90*1.5);
+    desenha_predio_maior(); // Predio 5
     glPopMatrix();
 
 
     glPushMatrix();
-	    glTranslatef(-20*1.5,0,10*1.5);
-	    desenha_predio_alto(); // Predio 6
+    glTranslatef(20*1.5,0,30*1.5);
+    desenha_predio_maior(); // Predio 2
     glPopMatrix();
 
     glPushMatrix();
-	    glTranslatef(-20*1.5,0,30*1.5);
-	    desenha_predio_maior(); // Predio 7
+    glTranslatef(20*1.5,0,50*1.5);
+    desenha_predio_alto(); // Predio 3
     glPopMatrix();
 
     glPushMatrix();
-	    glTranslatef(-20*1.5,0,50*1.5);
-	    desenha_predio_menor(); // Predio 8
+    glTranslatef(20*1.5,0,70*1.5);
+    desenha_predio_maior(); // Predio 4
     glPopMatrix();
 
     glPushMatrix();
-	    glTranslatef(-20*1.5,0,70*1.5);
-	    desenha_predio_alto(); // Predio 9
-    glPopMatrix();
-
-    glPushMatrix();
-	    glTranslatef(-20*1.5,0,90*1.5);
-	    desenha_predio_menor(); // Predio 10
-    glPopMatrix();
-
-    glPushMatrix();
-	    glTranslatef(-40*1.5,0,90*1.5);
-	    desenha_predio_menor(); // Predio 11
+    glTranslatef(20*1.5,0,90*1.5);
+    desenha_predio_maior(); // Predio 5
     glPopMatrix();
 
 
     glPushMatrix();
-	    glTranslatef(-80*1.5,0,10*1.5);
-	    desenha_predio_maior(); // Predio 12
+    glTranslatef(-20*1.5,0,10*1.5);
+    desenha_predio_alto(); // Predio 6
     glPopMatrix();
 
     glPushMatrix();
-	    glTranslatef(-80*1.5,0,30*1.5);
-	    desenha_predio_alto(); // Predio 13
+    glTranslatef(-20*1.5,0,30*1.5);
+    desenha_predio_maior(); // Predio 7
     glPopMatrix();
 
     glPushMatrix();
-	    glTranslatef(-80*1.5,0,50*1.5);
-	    desenha_predio_menor(); // Predio 14
+    glTranslatef(-20*1.5,0,50*1.5);
+    desenha_predio_menor(); // Predio 8
     glPopMatrix();
 
     glPushMatrix();
-	    glTranslatef(-80*1.5,0,70*1.5);
-	    desenha_predio_menor(); // Predio 15
+    glTranslatef(-20*1.5,0,70*1.5);
+    desenha_predio_maior(); // Predio 9
     glPopMatrix();
 
     glPushMatrix();
-	    glTranslatef(-80*1.5,0,90*1.5);
-	    desenha_predio_alto(); // Predio 16
+    glTranslatef(-20*1.5,0,90*1.5);
+    desenha_predio_menor(); // Predio 10
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-40*1.5,0,90*1.5);
+    desenha_predio_menor(); // Predio 11
+    glPopMatrix();
+
+
+    glPushMatrix();
+    glTranslatef(-40*1.5,0,30*1.5);
+    desenha_predio_maior(); // Predio 7
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-40*1.5,0,50*1.5);
+    desenha_predio_menor(); // Predio 8
+    glPopMatrix();
+
+
+    glPushMatrix();
+    glTranslatef(-80*1.5,0,10*1.5);
+    desenha_predio_maior(); // Predio 12
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-80*1.5,0,30*1.5);
+    desenha_predio_maior(); // Predio 13
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-80*1.5,0,50*1.5);
+    desenha_predio_menor(); // Predio 14
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-80*1.5,0,70*1.5);
+    desenha_predio_menor(); // Predio 15
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(-80*1.5,0,90*1.5);
+    desenha_predio_alto(); // Predio 16
     glPopMatrix();
 }
 
-void camera()
+void camera_livre()
 {
     glRotated(20+I,1,0,0);
-   	glRotated(210+K,0,1,0);
-	glTranslated(L,A,-20.0+R);
-	//printf("\nI:%f\nK:%f\nL:%f\nR:%f\nA:%f\n",I,K,L,R,A);
+    glRotated(210+K,0,1,0);
+    glTranslated(L,A-25,-20+R);
+    //printf("\nI:%f\nK:%f\nL:%f\nR:%f\nA:%f\n",I,K,L,R,A);
+}
 
+void camera2()
+{
+    glRotated(90,1,0,0);
+    glRotated(180,0,1,0);
+    glTranslated(27,-120,-68);
+}
+
+void camera3()
+{
+    glRotated(56,1,0,0);
+    glRotated(340,0,1,0);
+    glTranslated(0,-90,-140);
+}
+
+void camera_c1()
+{
+    glRotated(10,1,0,0);
+    glRotated(180+(angulo_1a*(-1)),0,1,0);
+    glTranslated(-c1_1,-c1_2-10,-c1_3);
+}
+
+void camera_c2()
+{
+    glRotated(10,1,0,0);
+    glRotated(180+(angulo_2a*(-1)),0,1,0);
+    glTranslated(-c2_1,-c2_2-10,-c2_3);
+}
+
+void muda_camera(int cam)
+{
+    switch(cam)
+    {
+    case 0:
+        camera_livre();
+        break;
+
+    case 1:
+        camera2();
+        break;
+
+    case 2:
+        camera3();
+        break;
+
+    case 3:
+        camera_c1();
+        break;
+
+    case 4:
+        camera_c2();
+        break;
+    }
 }
 
 void Atualiza_Desenho(void)
 {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
     glPushMatrix();
-    	glTranslated(0.0,0.0,-5.0);
-    	texto();
+    glTranslated(0.0,0.0,-5.0);
+    texto();    //Mostra o texto na tela.
     glPopMatrix();
 
-    camera();
-
-   	desenha_cidade();
+    muda_camera(cam);   // Cameras.
 
     glPushMatrix();
-    	desenha_carrinho_1();
+    desenha_cidade();   // Desenha cidade
+    spawn_carrinho_1(); // Desenha carrinhos.
+    spawn_carrinho_2();
     glPopMatrix();
-
-    glTranslated(0.0,22.0,45.0);
-    glRotated(180,0,1,0);
-    desenha_carrinho_2();
-
 
     glutPostRedisplay();
     glutSwapBuffers();
@@ -587,51 +652,65 @@ void tempo(int value)
 void LeTeclado(unsigned char tecla, int x, int y)
 {
 
-	switch (tecla)
-    {
-        case 'W':	// Rotaciona objeto.
-        	R-=3;
-        	break;
-
-    	case 'A':
-        	L-=3;
-        	break;
-
-    	case 'S':
-        	R+=3;
-        	break;
-
-    	case 'D':
-        	L+=3;
-        	break;
-
-        case 'I':	// Rotaciona objeto.
-        	I-=3;
-        	break;
-
-    	case 'J':
-        	K-=3;
-        	break;
-
-    	case 'K':
-        	I+=3;
-        	break;
-
-    	case 'L':
-        	K+=3;
-        	break;
-
-    	case 'Z':
-        	A+=3;
-        	break;
-
-    	case 'z':
-        	A-=3;
-        	break;
-    }
-
     switch (tecla)
     {
+    case 'W':
+        R-=3;   // Rotaciona objeto.
+        break;
+
+    case 'A':
+        L-=3;   // Rotaciona objeto.
+        break;
+
+    case 'S':
+        R+=3;   // Rotaciona objeto.
+        break;
+
+    case 'D':
+        L+=3;   // Rotaciona objeto.
+        break;
+
+    case 'I':
+        I-=3;   // Rotaciona objeto.
+        break;
+
+    case 'J':
+        K-=3;   // Rotaciona objeto.
+        break;
+
+    case 'K':
+        I+=3;   // Rotaciona objeto.
+        break;
+
+    case 'L':
+        K+=3;   // Rotaciona objeto.
+        break;
+
+    case 'Z':
+        A+=3;   // Rotaciona objeto.
+        break;
+
+    case 'z':
+        A-=3;   // Rotaciona objeto.
+        break;
+
+    case 'c':   // Passa para a proxima camera.
+        if(cam <= 3)
+        {
+            cam = cam + 1;
+            muda_camera(cam);
+            glutPostRedisplay();
+        }
+        break;
+
+    case 'C':   // Volta para a camera anterior.
+        if(cam >= 1)
+        {
+            cam = cam - 1;
+            muda_camera(cam);
+            glutPostRedisplay();
+        }
+        break;
     case 'Q':
         // Sai do jogo.
         exit(0);
@@ -645,7 +724,9 @@ void LeTeclado(unsigned char tecla, int x, int y)
         rodada = 0;
         glLoadIdentity();
         glutPostRedisplay();
+        break;
     }
+
 
     if(jogada%2 == 0)   // Se a jogada for par, e a vez do Player 1.
     {
@@ -1081,13 +1162,17 @@ void texto()
     glColor3f(0.0f, 1.0f, 1.0f);
     renderbitmap(-7.4,3.0,GLUT_BITMAP_HELVETICA_10, buf);
 
-    sprintf(buf,"NOVO JOGO:         B");
+    sprintf(buf,"CAMERA:           c ou C");
     glColor3f(0.8f, 0.8f, 0.8f);
     renderbitmap(-7.4,2.6,GLUT_BITMAP_HELVETICA_10, buf);
 
-    sprintf(buf,"SAIR:                      Q");
+    sprintf(buf,"NOVO JOGO:         B");
     glColor3f(0.8f, 0.8f, 0.8f);
     renderbitmap(-7.4,2.4,GLUT_BITMAP_HELVETICA_10, buf);
+
+    sprintf(buf,"SAIR:                      Q");
+    glColor3f(0.8f, 0.8f, 0.8f);
+    renderbitmap(-7.4,2.2,GLUT_BITMAP_HELVETICA_10, buf);
 
     if(jogada%2 != 0)   // Se a jogada for impar, e a vez do Player 2.
     {
@@ -1139,6 +1224,7 @@ int main(int argc, char *argv[])
     // Gera numeros aleatorios de 0 a 3, para definir as posicoes dos carrinhos.
     n1 = rand()%4;
     n2 = rand()%4;
+    //cam = rand()%3;
 
     glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_RGB);
