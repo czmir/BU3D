@@ -10,8 +10,8 @@
 #include <stdbool.h>
 #include <math.h>
 #include <time.h>
-#define PI 3.14159265
-#define G 9.81
+#define PI 3.14159265   // Pi.
+#define G 9.81          // Gravidade.
 
 
 void texto();
@@ -42,7 +42,7 @@ int n1, n2, numero_aleatorio,                   // Numeros aleatorios para cor d
 
 bool bola1 = false, bola2 = false, colisao1 = false, colisao2 = false, vez1 = false, vez2 = false;
 
-
+// Ajusta o tamanho da janela.
 void Atualiza_Tamanho(int w, int h)
 {
     glViewport(0, 0, w, h);
@@ -76,18 +76,19 @@ void desenha_contorno(float p1[3], float p2[3], float p3[3], float p4[3])
     glEnd();
 }
 
+// Funcao para desenhar blocos.
 int bloco(float c, float l, float p)
 {
 
     float v1[3] = {-c, l,  p},
-                  v2[3] = {-c, 0,  p},
-                          v3[3] = { c, 0,  p},
-                                  v4[3] = { c, l,  p};
+          v2[3] = {-c, 0,  p},
+          v3[3] = { c, 0,  p},
+          v4[3] = { c, l,  p};
 
     float v5[3] = { c, l, -p},
-                  v6[3] = { c, 0, -p},
-                          v7[3] = {-c, 0, -p},
-                                  v8[3] = {-c, l, -p};
+          v6[3] = { c, 0, -p},
+          v7[3] = {-c, 0, -p},
+          v8[3] = {-c, l, -p};
 
     //Face 1 - Frente
     desenha(v1,v2,v3,v4);
@@ -108,6 +109,7 @@ int bloco(float c, float l, float p)
     desenha(v2,v3,v6,v7);
 }
 
+// Desenha um circulo e seu contorno.
 void eixo()
 {
     float teta = 0.0f, teta2 = 0.1, raio = 1.0;
@@ -134,6 +136,7 @@ void eixo()
     glEnd();
 }
 
+// Desenha um cilindro
 int cilindro(float raio, float comprimento)
 {
     GLUquadricObj *quadratic;
@@ -141,11 +144,13 @@ int cilindro(float raio, float comprimento)
     gluCylinder(quadratic, raio, raio, comprimento, 32, 32);
 }
 
+// Desenha uma esfera.
 void bomba()
 {
     glutSolidSphere(1,10,10);
 }
 
+// Desenha o tank do Player 1.
 void desenha_carrinho_1()
 {
     // Base
@@ -215,6 +220,7 @@ void desenha_carrinho_1()
     glPopMatrix();
 }
 
+// Desenha o tank do Player 12.
 void desenha_carrinho_2()
 {
     // Base
@@ -284,6 +290,7 @@ void desenha_carrinho_2()
     glPopMatrix();
 }
 
+// Posicoes de spawn do carrinho 1.
 void spawn_carrinho_1()
 {
     glPushMatrix();
@@ -329,6 +336,7 @@ void spawn_carrinho_1()
     glPopMatrix();
 }
 
+// Posicoes de spawn do carrinho 2.
 void spawn_carrinho_2()
 {
     glPushMatrix();
@@ -374,6 +382,7 @@ void spawn_carrinho_2()
     glPopMatrix();
 }
 
+// Predio medio.
 void desenha_predio_maior()
 {
     glPushMatrix();
@@ -382,6 +391,7 @@ void desenha_predio_maior()
     glPopMatrix();
 }
 
+// Predio pequeno.
 void desenha_predio_menor()
 {
     glPushMatrix();
@@ -390,6 +400,7 @@ void desenha_predio_menor()
     glPopMatrix();
 }
 
+// Predio mais alto.
 void desenha_predio_alto()
 {
     glPushMatrix();
@@ -401,117 +412,112 @@ void desenha_predio_alto()
 void desenha_cidade()
 {
     glPushMatrix();
-    glTranslatef(0,0,10);
-    //desenha_predio_maior(); // Predio 1
-    glPopMatrix();
-
-    glPushMatrix();
     glTranslatef(0,0,30*1.5);
-    desenha_predio_menor(); // Predio 2
+    desenha_predio_menor();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(0,0,50*1.5);
-    desenha_predio_maior(); // Predio 3
+    desenha_predio_maior();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(0,0,70*1.5);
-    desenha_predio_menor(); // Predio 4
+    desenha_predio_menor();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(0,0,90*1.5);
-    desenha_predio_maior(); // Predio 5
+    desenha_predio_maior();
     glPopMatrix();
 
 
     glPushMatrix();
     glTranslatef(20*1.5,0,30*1.5);
-    desenha_predio_maior(); // Predio 2
+    desenha_predio_maior();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(20*1.5,0,50*1.5);
-    desenha_predio_alto(); // Predio 3
+    desenha_predio_alto();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(20*1.5,0,70*1.5);
-    desenha_predio_maior(); // Predio 4
+    desenha_predio_maior();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(20*1.5,0,90*1.5);
-    desenha_predio_maior(); // Predio 5
+    desenha_predio_maior();
     glPopMatrix();
 
 
     glPushMatrix();
     glTranslatef(-20*1.5,0,10*1.5);
-    desenha_predio_alto(); // Predio 6
+    desenha_predio_alto();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(-20*1.5,0,30*1.5);
-    desenha_predio_maior(); // Predio 7
+    desenha_predio_maior();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(-20*1.5,0,50*1.5);
-    desenha_predio_menor(); // Predio 8
+    desenha_predio_menor();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(-20*1.5,0,70*1.5);
-    desenha_predio_maior(); // Predio 9
+    desenha_predio_maior();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(-20*1.5,0,90*1.5);
-    desenha_predio_menor(); // Predio 10
+    desenha_predio_menor();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(-40*1.5,0,90*1.5);
-    desenha_predio_menor(); // Predio 11
+    desenha_predio_menor();
     glPopMatrix();
 
 
     glPushMatrix();
     glTranslatef(-40*1.5,0,30*1.5);
-    desenha_predio_maior(); // Predio 7
+    desenha_predio_maior();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(-40*1.5,0,50*1.5);
-    desenha_predio_menor(); // Predio 8
+    desenha_predio_menor();
     glPopMatrix();
 
 
     glPushMatrix();
     glTranslatef(-80*1.5,0,10*1.5);
-    desenha_predio_maior(); // Predio 12
+    desenha_predio_maior();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(-80*1.5,0,30*1.5);
-    desenha_predio_maior(); // Predio 13
+    desenha_predio_maior();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(-80*1.5,0,50*1.5);
-    desenha_predio_menor(); // Predio 14
+    desenha_predio_menor();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(-80*1.5,0,70*1.5);
-    desenha_predio_menor(); // Predio 15
+    desenha_predio_menor();
     glPopMatrix();
 
     glPushMatrix();
     glTranslatef(-80*1.5,0,90*1.5);
-    desenha_predio_alto(); // Predio 16
+    desenha_predio_alto();
     glPopMatrix();
 }
 
@@ -523,6 +529,7 @@ void camera_livre()
     //printf("\nI:%f\nK:%f\nL:%f\nR:%f\nA:%f\n",I,K,L,R,A);
 }
 
+// Visao de cima.
 void camera2()
 {
     glRotated(90,1,0,0);
@@ -530,6 +537,7 @@ void camera2()
     glTranslated(27,-120,-68);
 }
 
+// Camera do canto.
 void camera3()
 {
     glRotated(56,1,0,0);
@@ -537,6 +545,7 @@ void camera3()
     glTranslated(0,-90,-140);
 }
 
+// Camera do carrinho 1.
 void camera_c1()
 {
     glRotated(10,1,0,0);
@@ -544,6 +553,7 @@ void camera_c1()
     glTranslated(-c1_1,-c1_2-10,-c1_3);
 }
 
+// Camera do carrinho 2.
 void camera_c2()
 {
     glRotated(10,1,0,0);
@@ -585,16 +595,16 @@ void Atualiza_Desenho(void)
     glLoadIdentity();
 
     glPushMatrix();
-    glTranslated(0.0,0.0,-5.0);
-    texto();    //Mostra o texto na tela.
+        glTranslated(0.0,0.0,-5.0);
+        texto();            //Mostra o texto na tela.
     glPopMatrix();
 
-    muda_camera(cam);   // Cameras.
+    muda_camera(cam);       // Cameras.
 
     glPushMatrix();
-    desenha_cidade();   // Desenha cidade
-    spawn_carrinho_1(); // Desenha carrinhos.
-    spawn_carrinho_2();
+        desenha_cidade();   // Desenha cidade.
+        spawn_carrinho_1(); // Desenha carrinhos.
+        spawn_carrinho_2();
     glPopMatrix();
 
     glutPostRedisplay();
