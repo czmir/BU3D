@@ -24,16 +24,21 @@ void nova_rodada();
 
 char buf_1[100] = {0};
 
-float tam = 3.5f, Tempo = 0, R = 20, L = -27, I = -12, K = 6, A = -15,
-      r, g, b,                   	// Para a cor do fundo.
-      c1_cor = 1,                	// Para a cor do Carrinho 1.
-      c2_cor = 1,                	// Para a cor do Carrinho 2.
-      c1_1, c1_2, c2_1, c2_2,    	// Coordenadas de spawn dos carrinhos.
+float tam = 3.5f, Tempo = 0,
+      R = 20, L = -27, I = -12, K = 6, A = -15, // Variaveis para movimentar a camera livre.
+      r, g, b,                   	            // Para a cor do fundo.
+      c1_cor = 1,                	            // Para a cor do Carrinho 1.
+      c2_cor = 1,                	            // Para a cor do Carrinho 2.
+      c1_1, c1_2, c2_1, c2_2,    	            // Coordenadas de spawn dos carrinhos.
       c1_3, c2_3;
 
-int n1, n2, jogada = 0, rodada = 0, numero_aleatorio, ponto1 = 0, ponto2 = 0, ponto_1 = 0, ponto_2 = 0, cam = 1,
-            Velocidade_1 = 30, Velocidade_2 = 30, // Velocidade inicial dos projeteis dos canhoes.
-            angulo_1 = 2, angulo_1a = 2, angulo_2 = 2, angulo_2a = 2; // Angulo inicial dos canhoes.
+int n1, n2, numero_aleatorio,                   // Numeros aleatorios para cor de fundo e posicão de spawn dos carrinhos.
+    jogada = 0, rodada = 0, ponto1 = 0,         // Variaveis contadoras.
+    ponto2 = 0, ponto_1 = 0, ponto_2 = 0,
+    cam = 1,                                    // Posicao inicial da camera.
+    Velocidade_1 = 30, Velocidade_2 = 30,       // Velocidade inicial dos projeteis dos canhoes.
+    angulo_1 = 2, angulo_1a = 2,                // Angulos iniciais dos canhoes.
+    angulo_2 = 2, angulo_2a = 2;
 
 bool bola1 = false, bola2 = false, colisao1 = false, colisao2 = false, vez1 = false, vez2 = false;
 
