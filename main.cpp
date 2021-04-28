@@ -595,16 +595,16 @@ void Atualiza_Desenho(void)
     glLoadIdentity();
 
     glPushMatrix();
-        glTranslated(0.0,0.0,-5.0);
-        texto();            //Mostra o texto na tela.
+    glTranslated(0.0,0.0,-5.0);
+    texto();            //Mostra o texto na tela.
     glPopMatrix();
 
     muda_camera(cam);       // Cameras.
 
     glPushMatrix();
-        desenha_cidade();   // Desenha cidade.
-        spawn_carrinho_1(); // Desenha carrinhos.
-        spawn_carrinho_2();
+    desenha_cidade();   // Desenha cidade.
+    spawn_carrinho_1(); // Desenha carrinhos.
+    spawn_carrinho_2();
     glPopMatrix();
 
     glutPostRedisplay();
@@ -660,7 +660,7 @@ void vez_jogada()
 
 void tempo(int value)
 {
-    Tempo += 0.1;   // O tempo para utilizar na equacao de lancamento obliquo.
+    Tempo += 0.01;   // O tempo para utilizar na equacao de lancamento obliquo.
     glutPostRedisplay();
 }
 
