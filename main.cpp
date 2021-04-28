@@ -158,7 +158,7 @@ void desenha_carrinho_1()
     // Base
     glPushMatrix();
     glTranslatef(0,0,0);
-    bloco(4,3,6,0.2,0.2,0.5);
+    bloco(4,3,6,0.2*c1_cor,0.2*c1_cor,0.5*c1_cor);
     glPopMatrix();
 
     // Rodas
@@ -226,7 +226,7 @@ void desenha_carrinho_2()
     // Base
     glPushMatrix();
     glTranslatef(0,0,0);
-    bloco(4,3,6,0.5,0.2,0.2);
+    bloco(4,3,6,0.5*c2_cor,0.2*c2_cor,0.2*c2_cor);
     glPopMatrix();
 
     // Rodas
@@ -652,6 +652,15 @@ void nova_rodada()
     ponto2 = 0;
     jogada = 0;
 
+    if(jogada%2 == 0){
+        cam = 3;
+        muda_camera(cam);
+    }
+    if(jogada%2 != 0){
+        cam = 4;
+        muda_camera(cam);
+    }
+
     numero_aleatorio = rand()%3;
 
     if(numero_aleatorio == 0)   // Se o numero e 0, o fundo e verde.
@@ -952,12 +961,11 @@ void tiro_1()
         glTranslatef(posicao_x, posicao_y, 0.0);
         bomba();
         glutTimerFunc(30, tempo, 0);
-        /*
+
         // Verifica se acertou o carrinho 2.
-        if(	   posicao_x+c1_1 >= c2_1-4 && posicao_x+c1_1 <= c2_1+4
-        	&& posicao_y+c1_2 >= c2_2-2 && posicao_y+c1_2 <= c2_2+6
-        	&& posicao_x+c1_3 >= c2_3-2 && posicao_x+c1_3 <= c2_3+6
-        	&& posicao_y+c1_3 >= c2_2-2 && posicao_y+c1_3 <= c2_2+6)
+        if(posicao_x+c1_1 >= c2_1-4 && posicao_x+c1_1 <= c2_1+4 ||
+           posicao_x+c1_3 >= c2_3-4 && posicao_x+c1_3 <= c2_3+4 &&
+           posicao_y+c1_2 >= c2_2-4 && posicao_y+c1_2 <= c2_2+4)
         {
             colisao1 = true;
             ponto1++;   // Pontuacao para alterar a cor do carrinho.
@@ -992,40 +1000,6 @@ void tiro_1()
                 nova_rodada();
             }
         }
-
-        if( 	(posicao_x+c1_1 >= -30-7          && posicao_x+c1_1 <= -30+7         && posicao_y+c1_2 >= -5-15         && posicao_y+c1_2 <= -5+15)     ||
-                (posicao_x+c1_1 >= -45-7          && posicao_x+c1_1 <= -45+7         && posicao_y+c1_2 >= -3-15         && posicao_y+c1_2 <= -3+15)     ||
-                (posicao_x+c1_1 >= -75-7          && posicao_x+c1_1 <= -75+7         && posicao_y+c1_2 >= -5-15         && posicao_y+c1_2 <= -5+15)     ||
-                (posicao_x+c1_1 >= -90-7          && posicao_x+c1_1 <= -90+7         && posicao_y+c1_2 >= -7.5-15       && posicao_y+c1_2 <= -7.5+15)   ||
-                (posicao_x+c1_1 >= -105-7         && posicao_x+c1_1 <= -105+7        && posicao_y+c1_2 >= -12-15        && posicao_y+c1_2 <= -12+15)    ||
-                (posicao_x+c1_1 >= -135-7         && posicao_x+c1_1 <= -135+7        && posicao_y+c1_2 >= -5-15         && posicao_y+c1_2 <= -5+15)     ||
-                (posicao_x+c1_1 >= -150-7         && posicao_x+c1_1 <= -150+7        && posicao_y+c1_2 >= -7.5-15       && posicao_y+c1_2 <= -7.5+15)   ||
-                (posicao_x+c1_1 >= -165-7         && posicao_x+c1_1 <= -165+7        && posicao_y+c1_2 >= -5-15         && posicao_y+c1_2 <= -5+15)     ||
-                (posicao_x+c1_1 >= -180-7         && posicao_x+c1_1 <= -180+7        && posicao_y+c1_2 >= -7.5-15       && posicao_y+c1_2 <= -7.5+15)   ||
-                (posicao_x+c1_1 >= -195-7         && posicao_x+c1_1 <= -195+7        && posicao_y+c1_2 >= -5-15         && posicao_y+c1_2 <= -5+15)     ||
-                (posicao_x+c1_1 >= -195-7         && posicao_x+c1_1 <= -195+7        && posicao_y+c1_2 >= 8.5-0         && posicao_y+c1_2 <= 8.5+7)     ||
-                (posicao_x+c1_1 >= +15-7          && posicao_x+c1_1 <= +15+7         && posicao_y+c1_2 >= -5-15         && posicao_y+c1_2 <= -5+15)     ||
-                (posicao_x+c1_1 >= +30-7          && posicao_x+c1_1 <= +30+7         && posicao_y+c1_2 >= -8.5-15       && posicao_y+c1_2 <= -8.5+15)   ||
-                (posicao_x+c1_1 >= +45-7          && posicao_x+c1_1 <= +45+7         && posicao_y+c1_2 >= -5-15         && posicao_y+c1_2 <= -5+15)     ||
-                (posicao_x+c1_1 >= 45-7           && posicao_x+c1_1 <= 45+7          && posicao_y+c1_2 >= 8.5-0         && posicao_y+c1_2 <= 8.5+7)     ||
-                (posicao_x+c1_1 >= 60-7           && posicao_x+c1_1 <= 60+7          && posicao_y+c1_2 >= -7.5-15       && posicao_y+c1_2 <= -7.5+15)   ||
-                (posicao_x+c1_1 >= -60-7          && posicao_x+c1_1 <= -60+7         && posicao_y+c1_2 >= -7.5-15       && posicao_y+c1_2 <= -7.5+15)   ||
-                (posicao_x+c1_1 >= +75-7          && posicao_x+c1_1 <= +75+7         && posicao_y+c1_2 >= -5-15         && posicao_y+c1_2 <= -5+15)     ||
-                (posicao_x+c1_1 >= 90-7           && posicao_x+c1_1 <= 90+7          && posicao_y+c1_2 >= -5-15         && posicao_y+c1_2 <= -5+15)     ||
-                (posicao_x+c1_1 >= 90-7           && posicao_x+c1_1 <= 90+7          && posicao_y+c1_2 >= 8.5-0         && posicao_y+c1_2 <= 8.5+7)     ||
-                (posicao_x+c1_1 >= +105-7         && posicao_x+c1_1 <= +105+7        && posicao_y+c1_2 >= -7.5-15       && posicao_y+c1_2 <= -7.5+15)   ||
-                (posicao_x+c1_1 >= +135-7         && posicao_x+c1_1 <= +135+7        && posicao_y+c1_2 >= -7.5-15       && posicao_y+c1_2 <= -7.5+15)   ||
-                (posicao_x+c1_1 >= +150-7         && posicao_x+c1_1 <= +150+7        && posicao_y+c1_2 >= -5-15         && posicao_y+c1_2 <= -5+15)     ||
-                (posicao_x+c1_1 >= +165-7         && posicao_x+c1_1 <= +165+7        && posicao_y+c1_2 >= -5-15         && posicao_y+c1_2 <= -5+15)     ||
-                (posicao_x+c1_1 >= +180-7         && posicao_x+c1_1 <= +180+7        && posicao_y+c1_2 >= -7.5-15       && posicao_y+c1_2 <= -7.5+15)   ||
-                (posicao_x+c1_1 >= +205-7         && posicao_x+c1_1 <= +205+7        && posicao_y+c1_2 >= -7.5-1500     && posicao_y+c1_2 <= -7.5+1500) ||
-                (posicao_x+c1_1 >= -205-7         && posicao_x+c1_1 <= -205+7        && posicao_y+c1_2 >= -7.5-1500     && posicao_y+c1_2 <= -7.5+1500) ||
-                (posicao_x+c1_1 >= +0-1000        && posicao_x+c1_1 <= +0+1000       && posicao_y+c1_2 >= -40-7         && posicao_y+c1_2 <= -40+24))
-        {
-            bola1 = false;  // Colidiu nos predios ou nas bordas laterais/inferior, entao sai da condicao de tiro.
-            Tempo = 0;
-            vez_jogada();   // Alterna jogada.
-        }*/
     }
     else
     {
@@ -1058,8 +1032,10 @@ void tiro_2()
         glTranslatef(posicao_x, posicao_y, 0.0);
         bomba();
         glutTimerFunc(30, tempo, 0);
-        /*
-        if(posicao_x+c2_1 >= c1_1-4 && posicao_x+c2_1 <= c1_1+4 && posicao_y+c2_2 >= c1_2-2 && posicao_y+c2_2 <= c1_2+6)
+
+        if(posicao_x+c2_1 >= c1_1-4 && posicao_x+c2_1 <= c1_1+4 ||
+           posicao_x+c2_3 >= c1_3-4 && posicao_x+c2_3 <= c1_3+4 &&
+           posicao_y+c2_2 >= c1_2-4 && posicao_y+c2_2 <= c1_2+4)
         {
             colisao2 = true;
             ponto2++;   // Pontuacao para alterar a cor do carrinho.
@@ -1126,7 +1102,7 @@ void tiro_2()
             bola2 = false;  // Colidiu nos predios ou nas bordas laterais/inferior, entao sai da condicao de tiro.
             Tempo = 0;
             vez_jogada();   // Alterna jogada.
-        }*/
+        }
     }
     else
     {
