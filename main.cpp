@@ -950,7 +950,6 @@ void tiro_1()
     {
         glTranslatef(posicao_x, posicao_y, 0.0);
         bomba();
-        printf("\nx:%.2f\ny:%.2f\n",posicao_x,posicao_y);
         glutTimerFunc(30, tempo, 0);
         /*
         // Verifica se acertou o carrinho 2.
@@ -1277,13 +1276,12 @@ int main(int argc, char *argv[])
     // Gera numeros aleatorios de 0 a 3, para definir as posicoes dos carrinhos.
     n1 = rand()%4;
     n2 = rand()%4;
-    //cam = rand()%3;
 
     glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_RGB);
     glutInitWindowPosition(10,10);
     glutInitWindowSize(1200,800);
-    glutCreateWindow("Batalha Urbana - 3D");
+    glutCreateWindow("BU3D");
     glutDisplayFunc(Atualiza_Desenho);
     glutReshapeFunc(Atualiza_Tamanho);
     glutKeyboardFunc(LeTeclado);
