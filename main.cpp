@@ -109,6 +109,8 @@ int bloco(float c, float l, float p, float cor1, float cor2, float cor3)
     //Face 6 - Baixo
     glColor3f(cor1,cor2,cor3);
     desenha(v2,v3,v6,v7);
+
+    return 0;
 }
 
 // Desenha um circulo e seu contorno.
@@ -144,6 +146,7 @@ int cilindro(float raio, float comprimento)
     GLUquadricObj *quadratic;
     quadratic = gluNewQuadric();
     gluCylinder(quadratic, raio, raio, comprimento, 32, 32);
+    return 0;
 }
 
 // Desenha uma esfera.
@@ -563,7 +566,7 @@ void camera2()
 {
     glRotated(90,1,0,0);
     glRotated(180,0,1,0);
-    glTranslated(27,-120,-68);
+    glTranslated(27,-100,-68);
 }
 
 // Camera do canto.
@@ -766,7 +769,7 @@ void LeTeclado(unsigned char tecla, int x, int y)
         break;
 
     case 'C':         // Volta para a camera anterior.
-        if(cam >= 3)  // (cam >= 4) para ativar a camera livre.
+        if(cam >= 2)  // (cam >= 4) para ativar a camera livre.
         {
             cam = cam - 1;
             muda_camera(cam);
@@ -1000,6 +1003,12 @@ void tiro_1()
                 nova_rodada();
             }
         }
+        if(((posicao_x+c1_1 >= -50-5 && posicao_x+c1_1 <= -50+5  || posicao_x+c1_3 >= 70-5 && posicao_x+c1_3 <= 70+5) && posicao_y+c1_2 >= -2.5-5 && posicao_y+c1_2 <= -2.5+10))
+            {
+                bola1 = false;  // Sai da condicao de tiro.
+                Tempo = 0;
+                vez_jogada();   // Alterna jogada.
+            }
     }
     else
     {
@@ -1068,6 +1077,12 @@ void tiro_2()
                 glutTimerFunc(1000, tempo, 0.1);
                 nova_rodada();
             }
+        }
+        if(((posicao_x+c2_1 >= -50-5 && posicao_x+c2_1 <= -50+5  || posicao_x+c2_3 >= 70-5 && posicao_x+c2_3 <= 70+5) && posicao_y+c2_2 >= -2.5-5 && posicao_y+c2_2 <= -2.5+10))
+        {
+            bola1 = false;  // Sai da condicao de tiro.
+            Tempo = 0;
+            vez_jogada();   // Alterna jogada.
         }
     }
     else
