@@ -404,6 +404,7 @@ void desenha_predio_alto()
     glPopMatrix();
 }
 
+// Desenha os limites do universo.
 void paredes_piso()
 {
     glPushMatrix(); // Chao.
@@ -630,7 +631,7 @@ void Atualiza_Desenho(void)
     muda_camera(cam);       // Cameras.
 
     glPushMatrix();
-        paredes_piso();
+        paredes_piso();     // Desenha os limites do universo.
         desenha_cidade();   // Desenha cidade.
         spawn_carrinho_1(); // Desenha carrinhos.
         spawn_carrinho_2();
