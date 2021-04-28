@@ -756,7 +756,7 @@ void LeTeclado(unsigned char tecla, int x, int y)
         A-=3;   // Rotaciona objeto.
         break;
 
-    case 'c':   // Passa para a proxima camera.
+    case 'c':         // Passa para a proxima camera.
         if(cam <= 3)
         {
             cam = cam + 1;
@@ -765,8 +765,8 @@ void LeTeclado(unsigned char tecla, int x, int y)
         }
         break;
 
-    case 'C':   // Volta para a camera anterior.
-        if(cam >= 1)
+    case 'C':         // Volta para a camera anterior.
+        if(cam >= 3)  // (cam >= 4) para ativar a camera livre.
         {
             cam = cam - 1;
             muda_camera(cam);
