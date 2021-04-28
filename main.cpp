@@ -35,7 +35,7 @@ float tam = 3.5f, Tempo = 0,
 int n1, n2, numero_aleatorio,                   // Numeros aleatorios para cor de fundo e posicão de spawn dos carrinhos.
     jogada = 0, rodada = 0, ponto1 = 0,         // Variaveis contadoras.
     ponto2 = 0, ponto_1 = 0, ponto_2 = 0,
-    cam = 1,                                    // Posicao inicial da camera.
+    cam = 3,                                    // Posicao inicial da camera.
     Velocidade_1 = 30, Velocidade_2 = 30,       // Velocidade inicial dos projeteis dos canhoes.
     angulo_1 = 2, angulo_1a = 2,                // Angulos iniciais dos canhoes.
     angulo_2 = 2, angulo_2a = 2;
@@ -63,11 +63,8 @@ void desenha(float p1[3], float p2[3], float p3[3], float p4[3])
     glVertex3fv(p3);
     glVertex3fv(p4);
     glEnd();
-}
 
-void desenha_contorno(float p1[3], float p2[3], float p3[3], float p4[3])
-{
-
+    glColor3f(0,0,0);
     glBegin(GL_LINE_LOOP);
     glVertex3fv(p1);
     glVertex3fv(p2);
@@ -77,9 +74,8 @@ void desenha_contorno(float p1[3], float p2[3], float p3[3], float p4[3])
 }
 
 // Funcao para desenhar blocos.
-int bloco(float c, float l, float p)
+int bloco(float c, float l, float p, float cor1, float cor2, float cor3)
 {
-
     float v1[3] = {-c, l,  p},
           v2[3] = {-c, 0,  p},
           v3[3] = { c, 0,  p},
@@ -91,21 +87,27 @@ int bloco(float c, float l, float p)
           v8[3] = {-c, l, -p};
 
     //Face 1 - Frente
+    glColor3f(cor1,cor2,cor3);
     desenha(v1,v2,v3,v4);
 
     //Face 2 - Direita
+    glColor3f(cor1,cor2,cor3);
     desenha(v3,v4,v5,v6);
 
     //Face 3 - Tras
+    glColor3f(cor1,cor2,cor3);
     desenha(v5,v6,v7,v8);
 
     //Face 4 - Esquerda
+    glColor3f(cor1,cor2,cor3);
     desenha(v1,v2,v7,v8);
 
     //Face 5 - Topo
+    glColor3f(cor1,cor2,cor3);
     desenha(v1,v4,v5,v8);
 
     //Face 6 - Baixo
+    glColor3f(cor1,cor2,cor3);
     desenha(v2,v3,v6,v7);
 }
 
@@ -155,9 +157,8 @@ void desenha_carrinho_1()
 {
     // Base
     glPushMatrix();
-    glColor3f(0.2,0.2,0.5);
     glTranslatef(0,0,0);
-    bloco(4,3,6);
+    bloco(4,3,6,0.2,0.2,0.5);
     glPopMatrix();
 
     // Rodas
@@ -193,13 +194,12 @@ void desenha_carrinho_1()
 
     // Cima
     glPushMatrix();
-    glColor3f(0.3,0.3,0.5);
     glTranslatef(0,3,0);
     glRotatef(angulo_1a,0,1,0);
-    bloco(3,2,3);
+    bloco(3,2,3,0.3,0.3,0.5);
 
     // Cano
-    glColor3f(0.1,0.1,0.1);
+    glColor3f(0.0,0.0,0.0);
     glTranslatef(0,1,0);
     glRotatef(angulo_1*(-1),1,0,0);
     cilindro(0.5,10);
@@ -220,14 +220,13 @@ void desenha_carrinho_1()
     glPopMatrix();
 }
 
-// Desenha o tank do Player 12.
+// Desenha o tank do Player 2.
 void desenha_carrinho_2()
 {
     // Base
     glPushMatrix();
-    glColor3f(0.5,0.2,0.2);
     glTranslatef(0,0,0);
-    bloco(4,3,6);
+    bloco(4,3,6,0.5,0.2,0.2);
     glPopMatrix();
 
     // Rodas
@@ -263,13 +262,12 @@ void desenha_carrinho_2()
 
     // Cima
     glPushMatrix();
-    glColor3f(0.5,0.1,0.1);
     glTranslatef(0,3,0);
     glRotatef(angulo_2a,0,1,0);
-    bloco(3,2,3);
+    bloco(3,2,3,0.5,0.1,0.1);
 
     // Cano
-    glColor3f(0.1,0.1,0.1);
+    glColor3f(0.0,0.0,0.0);
     glTranslatef(0,1,0);
     glRotatef(angulo_2*(-1),1,0,0);
     cilindro(0.5,10);
@@ -386,8 +384,7 @@ void spawn_carrinho_2()
 void desenha_predio_maior()
 {
     glPushMatrix();
-    glColor3f(0,0,0);
-    bloco(8,30,8);
+    bloco(8,30,8,0.1,0.1,0.1);
     glPopMatrix();
 }
 
@@ -395,8 +392,7 @@ void desenha_predio_maior()
 void desenha_predio_menor()
 {
     glPushMatrix();
-    glColor3f(0.2,0.2,0.2);
-    bloco(8,20,8);
+    bloco(8,20,8,0.2,0.2,0.2);
     glPopMatrix();
 }
 
@@ -404,8 +400,7 @@ void desenha_predio_menor()
 void desenha_predio_alto()
 {
     glPushMatrix();
-    glColor3f(0.5,0.5,0.5);
-    bloco(8,50,8);
+    bloco(8,50,8,0.5,0.5,0.5);
     glPopMatrix();
 }
 
@@ -595,16 +590,16 @@ void Atualiza_Desenho(void)
     glLoadIdentity();
 
     glPushMatrix();
-    glTranslated(0.0,0.0,-5.0);
-    texto();            //Mostra o texto na tela.
+        glTranslated(0.0,0.0,-5.0);
+        texto();            //Mostra o texto na tela.
     glPopMatrix();
 
     muda_camera(cam);       // Cameras.
 
     glPushMatrix();
-    desenha_cidade();   // Desenha cidade.
-    spawn_carrinho_1(); // Desenha carrinhos.
-    spawn_carrinho_2();
+        desenha_cidade();   // Desenha cidade.
+        spawn_carrinho_1(); // Desenha carrinhos.
+        spawn_carrinho_2();
     glPopMatrix();
 
     glutPostRedisplay();
@@ -656,6 +651,15 @@ void nova_rodada()
 void vez_jogada()
 {
     jogada++;   // Incrementa o numero da jogada.
+
+    if(jogada%2 == 0){
+        cam = 3;
+        muda_camera(cam);
+    }
+    if(jogada%2 != 0){
+        cam = 4;
+        muda_camera(cam);
+    }
 }
 
 void tempo(int value)
@@ -913,6 +917,7 @@ void tiro_1()
     {
         glTranslatef(posicao_x, posicao_y, 0.0);
         bomba();
+        printf("\nx:%.2f\ny:%.2f\n",posicao_x,posicao_y);
         glutTimerFunc(30, tempo, 0);
         /*
         // Verifica se acertou o carrinho 2.
