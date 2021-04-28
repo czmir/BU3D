@@ -1069,40 +1069,6 @@ void tiro_2()
                 nova_rodada();
             }
         }
-
-        if( 	(posicao_x+c2_1 >= -30-7          && posicao_x+c2_1 <= -30+7         && posicao_y+c2_2 >= -5-15         && posicao_y+c2_2 <= -5+15)     ||
-                (posicao_x+c2_1 >= -45-7          && posicao_x+c2_1 <= -45+7         && posicao_y+c2_2 >= -3-15         && posicao_y+c2_2 <= -3+15)     ||
-                (posicao_x+c2_1 >= -75-7          && posicao_x+c2_1 <= -75+7         && posicao_y+c2_2 >= -5-15         && posicao_y+c2_2 <= -5+15)     ||
-                (posicao_x+c2_1 >= -90-7          && posicao_x+c2_1 <= -90+7         && posicao_y+c2_2 >= -7.5-15       && posicao_y+c2_2 <= -7.5+15)   ||
-                (posicao_x+c2_1 >= -105-7         && posicao_x+c2_1 <= -105+7        && posicao_y+c2_2 >= -12-15        && posicao_y+c2_2 <= -12+15)    ||
-                (posicao_x+c2_1 >= -135-7         && posicao_x+c2_1 <= -135+7        && posicao_y+c2_2 >= -5-15         && posicao_y+c2_2 <= -5+15)     ||
-                (posicao_x+c2_1 >= -150-7         && posicao_x+c2_1 <= -150+7        && posicao_y+c2_2 >= -7.5-15       && posicao_y+c2_2 <= -7.5+15)   ||
-                (posicao_x+c2_1 >= -165-7         && posicao_x+c2_1 <= -165+7        && posicao_y+c2_2 >= -5-15         && posicao_y+c2_2 <= -5+15)     ||
-                (posicao_x+c2_1 >= -180-7         && posicao_x+c2_1 <= -180+7        && posicao_y+c2_2 >= -7.5-15       && posicao_y+c2_2 <= -7.5+15)   ||
-                (posicao_x+c2_1 >= -195-7         && posicao_x+c2_1 <= -195+7        && posicao_y+c2_2 >= -5-15         && posicao_y+c2_2 <= -5+15)     ||
-                (posicao_x+c2_1 >= -195-7         && posicao_x+c2_1 <= -195+7        && posicao_y+c2_2 >= 8.5-0         && posicao_y+c2_2 <= 8.5+7)     ||
-                (posicao_x+c2_1 >= +15-7          && posicao_x+c2_1 <= +15+7         && posicao_y+c2_2 >= -5-15         && posicao_y+c2_2 <= -5+15)     ||
-                (posicao_x+c2_1 >= +30-7          && posicao_x+c2_1 <= +30+7         && posicao_y+c2_2 >= -8.5-15       && posicao_y+c2_2 <= -8.5+15)   ||
-                (posicao_x+c2_1 >= +45-7          && posicao_x+c2_1 <= +45+7         && posicao_y+c2_2 >= -5-15         && posicao_y+c2_2 <= -5+15)     ||
-                (posicao_x+c2_1 >= 45-7           && posicao_x+c2_1 <= 45+7          && posicao_y+c2_2 >= 8.5-0         && posicao_y+c2_2 <= 8.5+7)     ||
-                (posicao_x+c2_1 >= 60-7           && posicao_x+c2_1 <= 60+7          && posicao_y+c2_2 >= -7.5-15       && posicao_y+c2_2 <= -7.5+15)   ||
-                (posicao_x+c2_1 >= -60-7          && posicao_x+c2_1 <= -60+7         && posicao_y+c2_2 >= -7.5-15       && posicao_y+c2_2 <= -7.5+15)   ||
-                (posicao_x+c2_1 >= +75-7          && posicao_x+c2_1 <= +75+7         && posicao_y+c2_2 >= -5-15         && posicao_y+c2_2 <= -5+15)     ||
-                (posicao_x+c2_1 >= 90-7           && posicao_x+c2_1 <= 90+7          && posicao_y+c2_2 >= -5-15         && posicao_y+c2_2 <= -5+15)     ||
-                (posicao_x+c2_1 >= 90-7           && posicao_x+c2_1 <= 90+7          && posicao_y+c2_2 >= 8.5-0         && posicao_y+c2_2 <= 8.5+7)     ||
-                (posicao_x+c2_1 >= +105-7         && posicao_x+c2_1 <= +105+7        && posicao_y+c2_2 >= -7.5-15       && posicao_y+c2_2 <= -7.5+15)   ||
-                (posicao_x+c2_1 >= +135-7         && posicao_x+c2_1 <= +135+7        && posicao_y+c2_2 >= -7.5-15       && posicao_y+c2_2 <= -7.5+15)   ||
-                (posicao_x+c2_1 >= +150-7         && posicao_x+c2_1 <= +150+7        && posicao_y+c2_2 >= -5-15         && posicao_y+c2_2 <= -5+15)     ||
-                (posicao_x+c2_1 >= +165-7         && posicao_x+c2_1 <= +165+7        && posicao_y+c2_2 >= -5-15         && posicao_y+c2_2 <= -5+15)     ||
-                (posicao_x+c2_1 >= +180-7         && posicao_x+c2_1 <= +180+7        && posicao_y+c2_2 >= -7.5-15       && posicao_y+c2_2 <= -7.5+15)   ||
-                (posicao_x+c2_1 >= +205-7         && posicao_x+c2_1 <= +205+7        && posicao_y+c2_2 >= -7.5-1500     && posicao_y+c2_2 <= -7.5+1500) ||
-                (posicao_x+c2_1 >= -205-7         && posicao_x+c2_1 <= -205+7        && posicao_y+c2_2 >= -7.5-1500     && posicao_y+c2_2 <= -7.5+1500) ||
-                (posicao_x+c2_1 >= +0-1000        && posicao_x+c2_1 <= +0+1000       && posicao_y+c2_2 >= -40-7         && posicao_y+c2_2 <= -40+24))
-        {
-            bola2 = false;  // Colidiu nos predios ou nas bordas laterais/inferior, entao sai da condicao de tiro.
-            Tempo = 0;
-            vez_jogada();   // Alterna jogada.
-        }
     }
     else
     {
