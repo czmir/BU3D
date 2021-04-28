@@ -963,9 +963,9 @@ void tiro_1()
         glutTimerFunc(30, tempo, 0);
 
         // Verifica se acertou o carrinho 2.
-        if(posicao_x+c1_1 >= c2_1-4 && posicao_x+c1_1 <= c2_1+4 ||
-           posicao_x+c1_3 >= c2_3-4 && posicao_x+c1_3 <= c2_3+4 &&
-           posicao_y+c1_2 >= c2_2-4 && posicao_y+c1_2 <= c2_2+4)
+        if((posicao_x+c1_1 >= c2_1-5 && posicao_x+c1_1 <= c2_1+5  ||
+            posicao_x+c1_3 >= c2_3-5 && posicao_x+c1_3 <= c2_3+5) &&
+            posicao_y+c1_2 >= c2_2-5 && posicao_y+c1_2 <= c2_2+10)
         {
             colisao1 = true;
             ponto1++;   // Pontuacao para alterar a cor do carrinho.
@@ -1033,9 +1033,9 @@ void tiro_2()
         bomba();
         glutTimerFunc(30, tempo, 0);
 
-        if(posicao_x+c2_1 >= c1_1-4 && posicao_x+c2_1 <= c1_1+4 ||
-           posicao_x+c2_3 >= c1_3-4 && posicao_x+c2_3 <= c1_3+4 &&
-           posicao_y+c2_2 >= c1_2-4 && posicao_y+c2_2 <= c1_2+4)
+        if((posicao_x+c2_1 >= c1_1-5 && posicao_x+c2_1 <= c1_1+5  ||
+            posicao_x+c2_3 >= c1_3-5 && posicao_x+c2_3 <= c1_3+5) &&
+            posicao_y+c2_2 >= c1_2-5 && posicao_y+c2_2 <= c1_2+10)
         {
             colisao2 = true;
             ponto2++;   // Pontuacao para alterar a cor do carrinho.
