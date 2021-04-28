@@ -404,6 +404,39 @@ void desenha_predio_alto()
     glPopMatrix();
 }
 
+void paredes_piso()
+{
+    glPushMatrix(); // Chao.
+        glTranslated(-50,-2.5,70);
+        bloco(120,2.2,120,0.15,0.15,0.15);
+    glPopMatrix();
+
+    glPushMatrix(); // Fundo.
+        glTranslated(-50,0,170);
+        bloco(100,100,2,r,g,b);
+    glPopMatrix();
+
+    glPushMatrix(); // Tras.
+        glTranslated(-50,0,-7);
+        bloco(100,100,2,r,g,b);
+    glPopMatrix();
+
+    glPushMatrix(); // Direita.
+        glTranslated(-152.2,0,70);
+        bloco(2,100,100,r,g,b);
+    glPopMatrix();
+
+    glPushMatrix(); // Esquerda.
+        glTranslated(52.2,0,70);
+        bloco(2,100,100,r,g,b);
+    glPopMatrix();
+
+    glPushMatrix(); // Teto.
+        glTranslated(-50,100.2,70);
+        bloco(120,2.2,120,r*1.5,g*0.8,b);
+    glPopMatrix();
+}
+
 void desenha_cidade()
 {
     glPushMatrix();
@@ -597,6 +630,7 @@ void Atualiza_Desenho(void)
     muda_camera(cam);       // Cameras.
 
     glPushMatrix();
+        paredes_piso();
         desenha_cidade();   // Desenha cidade.
         spawn_carrinho_1(); // Desenha carrinhos.
         spawn_carrinho_2();
@@ -637,7 +671,6 @@ void nova_rodada()
         g = 0.5;
         b = 0.0;
     }
-    glClearColor(r, g, b, 0);
 
     c1_cor = 1;
     c2_cor = 1;
@@ -1276,8 +1309,7 @@ int main(int argc, char *argv[])
         g = 0.5;
         b = 0.0;
     }
-    //glClearColor(r, g, b, 0);
-    glClearColor(0.5, 0.5, 1.0, 0);
+    glClearColor(1.5,0.5,0.5,0);
 
     glEnable(GL_DEPTH_TEST);
     glutMainLoop();
