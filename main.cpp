@@ -300,37 +300,37 @@ void spawn_carrinho_1()
     {
     case 0:
         // Posicao 1.
-        glTranslatef(-30,51,15);
-        c1_1 = -30;
-        c1_2 = 51;
-        c1_3 = 15;
+        glTranslatef(-30.0f,21.0f,75.0f);
+        c1_1 = -30.0f;
+        c1_2 = 21.0f;
+        c1_3 = 75.0f;
         desenha_carrinho_1();
         break;
 
     case 1:
         // Posicao 2.
-        glTranslatef(-60,21,75);
-        c1_1 = -60;
-        c1_2 = 21;
-        c1_3 = 75;
+        glTranslatef(-60.0f,21.0f,75.0f);
+        c1_1 = -60.0f;
+        c1_2 = 21.0f;
+        c1_3 = 75.0f;
         desenha_carrinho_1();
         break;
 
     case 2:
         // Posicao 3.
-        glTranslatef(-120,21,105);
-        c1_1 = -120;
-        c1_2 = 21;
-        c1_3 = 105;
+        glTranslatef(-120.0f,21.0f,105.0f);
+        c1_1 = -120.0f;
+        c1_2 = 21.0f;
+        c1_3 = 105.0f;
         desenha_carrinho_1();
         break;
 
     case 3:
         // Posicao 4.
-        glTranslatef(-60,21,135);
-        c1_1 = -60;
-        c1_2 = 21;
-        c1_3 = 135;
+        glTranslatef(-60.0f,21.0f,135.0f);
+        c1_1 = -60.0f;
+        c1_2 = 21.0f;
+        c1_3 = 135.0f;
         desenha_carrinho_1();
         break;
     }
@@ -346,37 +346,37 @@ void spawn_carrinho_2()
     {
     case 0:
         // Posicao 1.
-        glTranslated(0.0,21.0,45.0);
-        c2_1 = 0.0;
-        c2_2 = 21.0;
-        c2_3 = 45.0;
+        glTranslated(0.0f,21.0f,45.0f);
+        c2_1 = 0.0f;
+        c2_2 = 21.0f;
+        c2_3 = 45.0f;
         desenha_carrinho_2();
         break;
 
     case 1:
         // Posicao 2.
-        glTranslated(0.0,21.0,105.0);
-        c2_1 = 0.0;
-        c2_2 = 21.0;
-        c2_3 = 105.0;
+        glTranslated(0.0f,21.0f,105.0f);
+        c2_1 = 0.0f;
+        c2_2 = 21.0f;
+        c2_3 = 105.0f;
         desenha_carrinho_2();
         break;
 
     case 2:
         // Posicao 3.
-        glTranslated(-120.0,31.0,15.0);
-        c2_1 = -120.0;
-        c2_2 = 31.0;
-        c2_3 = 15.0;
+        glTranslated(-120.0f,31.0f,15.0f);
+        c2_1 = -120.0f;
+        c2_2 = 31.0f;
+        c2_3 = 15.0f;
         desenha_carrinho_2();
         break;
 
     case 3:
         // Posicao 4.
-        glTranslated(30,31.0,135.0);
-        c2_1 = 30;
-        c2_2 = 31;
-        c2_3 = 135;
+        glTranslated(30.0f,31.0f,135.0f);
+        c2_1 = 30.0f;
+        c2_2 = 31.0f;
+        c2_3 = 135.0f;
         desenha_carrinho_2();
         break;
     }
@@ -487,7 +487,7 @@ void desenha_cidade()
 
     glPushMatrix();
     glTranslatef(-20*1.5,0,10*1.5);
-    desenha_predio_alto();
+    desenha_predio_maior();
     glPopMatrix();
 
     glPushMatrix();
@@ -787,6 +787,8 @@ void LeTeclado(unsigned char tecla, int x, int y)
         ponto_1 = 0;
         ponto_2 = 0;
         rodada = 0;
+        bola1 = false;
+        bola2 = false;
         glLoadIdentity();
         glutPostRedisplay();
         break;
@@ -965,10 +967,12 @@ void tiro_1()
         bomba();
         glutTimerFunc(30, tempo, 0);
 
+        printf("\n C2_1: %.2f, x+C1_1: %.2f\n C2_3: %.2f, x+C1_3: %.2f\n",c2_1,posicao_x+c1_1,c2_3,posicao_x+c1_3);
+        printf("\n C1_1: %.2f\n C1_3: %.2f\n",c1_1,c1_3);
         // Verifica se acertou o carrinho 2.
-        if(((posicao_x+c1_1 >= c2_1-5 && posicao_x+c1_1 <= c2_1+5)  ||
-            (posicao_x+c1_3 >= c2_3-5 && posicao_x+c1_3 <= c2_3+5)) &&
-            posicao_y+c1_2 >= c2_2-5 && posicao_y+c1_2 <= c2_2+10)
+        //((x >= cx_1-tam && x <= cx_1+tam) || (z >= cz_3-tam && z <= cz_3+tam)) && (y >= cy_2-tam && y <= c2_2+tam)
+
+        if(((posicao_x+c1_1 >= c2_1-2.5 && posicao_x+c1_1 <= c2_1+2.5)||(posicao_x+c1_3 >= c2_3-2.5 && posicao_x+c1_3 <= c2_3+2.5)) && (posicao_y+c1_2 >= c2_2-3.5 && posicao_y+c1_2 <= c2_2+3.5))
         {
             colisao1 = true;
             ponto1++;   // Pontuacao para alterar a cor do carrinho.
@@ -1003,12 +1007,6 @@ void tiro_1()
                 nova_rodada();
             }
         }
-        if((((posicao_x+c1_1 >= -50-5 && posicao_x+c1_1 <= -50+5)  || (posicao_x+c1_3 >= 70-5 && posicao_x+c1_3 <= 70+5)) && posicao_y+c1_2 >= -2.5-5 && posicao_y+c1_2 <= -2.5+10))
-            {
-                bola1 = false;  // Sai da condicao de tiro.
-                Tempo = 0;
-                vez_jogada();   // Alterna jogada.
-            }
     }
     else
     {
@@ -1042,9 +1040,7 @@ void tiro_2()
         bomba();
         glutTimerFunc(30, tempo, 0);
 
-        if(((posicao_x+c2_1 >= c1_1-5 && posicao_x+c2_1 <= c1_1+5)  ||
-            (posicao_x+c2_3 >= c1_3-5 && posicao_x+c2_3 <= c1_3+5)) &&
-            posicao_y+c2_2 >= c1_2-5 && posicao_y+c2_2 <= c1_2+10)
+        if(((posicao_x+c2_1 >= c1_1-2.5 && posicao_x+c2_1 <= c1_1+2.5)||(posicao_x+c2_3 >= c1_3-2.5 && posicao_x+c2_3 <= c1_3+2.5)) && (posicao_y+c2_2 >= c1_2-3.5 && posicao_y+c2_2 <= c1_2+3.5))
         {
             colisao2 = true;
             ponto2++;   // Pontuacao para alterar a cor do carrinho.
@@ -1077,12 +1073,6 @@ void tiro_2()
                 glutTimerFunc(1000, tempo, 0.1);
                 nova_rodada();
             }
-        }
-        if((((posicao_x+c2_1 >= -50-5 && posicao_x+c2_1 <= -50+5)  || (posicao_x+c2_3 >= 70-5 && posicao_x+c2_3 <= 70+5)) && posicao_y+c2_2 >= -2.5-5 && posicao_y+c2_2 <= -2.5+10))
-        {
-            bola1 = false;  // Sai da condicao de tiro.
-            Tempo = 0;
-            vez_jogada();   // Alterna jogada.
         }
     }
     else
