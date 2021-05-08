@@ -947,28 +947,6 @@ void LeTeclado(unsigned char tecla, int x, int y)
     }
 }
 
-double valorAbsoluto(double x1,double y1,double z1,double x2,double y2,double z2)
-{
-    if (c1_1 >= 0.0) x1 = 1*c1_1;
-   else x1 = -1*c1_1;
-
-    if (c1_2 >= 0.0) y1 = 1*c1_2;
-   else y1 = -1*c1_2;
-
-    if (c1_3 >= 0.0) z1 = 1*c1_3;
-   else z1 = -1*c1_3;
-
-
-    if (c2_1 >= 0.0) x2 = 1*c2_1;
-   else x2 = -1*c2_1;
-
-    if (c2_2 >= 0.0) y2 = 1*c2_2;
-   else y2 = -1*c2_2;
-
-    if (c2_3 >= 0.0) z2 = 1*c2_3;
-   else z2 = -1*c2_3;
-}
-
 void tiro_1()
 {
     float Voy = Velocidade_1 * sin((angulo_1)/180.0 * PI),
@@ -978,33 +956,13 @@ void tiro_1()
           y = Voy * Tempo - G * Tempo * Tempo / 2,
 
           posicao_x = 0.0 + x,
-          posicao_y = 2.0 + y, // Posicao (x,y) do projetil.
-          x1, y1, z1, x2, y2, z2;
+          posicao_y = 2.0 + y; // Posicao (x,y) do projetil.
 
     // Mostra a trajetoria do projetil durante o tiro.
     if(bola1 == true)
     {
         trajetoria_balistica_1();
     }
-
-    if (c1_1 >= 0.0) x1 = 1*c1_1;
-   else x1 = -1*c1_1;
-
-    if (c1_2 >= 0.0) y1 = 1*c1_2;
-   else y1 = -1*c1_2;
-
-    if (c1_3 >= 0.0) z1 = 1*c1_3;
-   else z1 = -1*c1_3;
-
-
-    if (c2_1 >= 0.0) x2 = 1*c2_1;
-   else x2 = -1*c2_1;
-
-    if (c2_2 >= 0.0) y2 = 1*c2_2;
-   else y2 = -1*c2_2;
-
-    if (c2_3 >= 0.0) z2 = 1*c2_3;
-   else z2 = -1*c2_3;
 
     // Limites para +x, -x e -y para a posicao do projetil.
     if(posicao_x >= -400.00 && posicao_y >= -50.00 && posicao_x <= 400.00)
@@ -1016,9 +974,10 @@ void tiro_1()
         printf("\n C2_1: %.2f, x+C1_1: %.2f\n C2_3: %.2f, x+C1_3: %.2f\n",c2_1,posicao_x+c1_1,c2_3,posicao_x+c1_3);
         printf("\n C1_1: %.2f\n C1_3: %.2f\n",c1_1,c1_3);
         // Verifica se acertou o carrinho 2.
-        //(((posicao_x+c1_1 >= c2_1-2.5 && posicao_x+c1_1 <= c2_1+2.5)||(posicao_x+c1_3 >= c2_3-2.5 && posicao_x+c1_3 <= c2_3+2.5)) && (posicao_y+c1_2 >= c2_2-3.5 && posicao_y+c1_2 <= c2_2+3.5))
+        //((x >= cx_1-tam && x <= cx_1+tam) || (z >= cz_3-tam && z <= cz_3+tam)) && (y >= cy_2-tam && y <= c2_2+tam)
 
-        if(((posicao_x+x1 >= x2-2.5 && posicao_x+x1 <= x2+2.5)||(posicao_x+z1 >= z2-2.5 && posicao_x+z1 <= z2+2.5)) && (posicao_y+y1 >= y2-3.5 && posicao_y+y1 <= y2+3.5))
+        if(((posicao_x+c1_1 >= c2_1-2.5 && posicao_x+c1_1 <= c2_1+2.5)||(posicao_x+c1_3 >= c2_3-2.5 && posicao_x+c1_3 <= c2_3+2.5))
+           && (posicao_y+c1_2 >= c2_2-3.5 && posicao_y+c1_2 <= c2_2+3.5))
         {
             colisao1 = true;
             ponto1++;   // Pontuacao para alterar a cor do carrinho.
@@ -1071,33 +1030,13 @@ void tiro_2()
           y = Voy * Tempo - G * Tempo * Tempo / 2,
 
           posicao_x = 0.0 + x,
-          posicao_y = 2.0 + y, // Posicao (x,y) do projetil.
-          x1, y1, z1, x2, y2, z2;
+          posicao_y = 2.0 + y; // Posicao (x,y) do projetil.
 
     if(bola2 == true)
     {
         // Mostra a trajetoria do projetil durante o tiro.
         trajetoria_balistica_2();
     }
-
-    if (c1_1 >= 0.0) x1 = 1*c1_1;
-   else x1 = -1*c1_1;
-
-    if (c1_2 >= 0.0) y1 = 1*c1_2;
-   else y1 = -1*c1_2;
-
-    if (c1_3 >= 0.0) z1 = 1*c1_3;
-   else z1 = -1*c1_3;
-
-
-    if (c2_1 >= 0.0) x2 = 1*c2_1;
-   else x2 = -1*c2_1;
-
-    if (c2_2 >= 0.0) y2 = 1*c2_2;
-   else y2 = -1*c2_2;
-
-    if (c2_3 >= 0.0) z2 = 1*c2_3;
-   else z2 = -1*c2_3;
 
     // Limites para +x, -x e -y para a posicao do projetil.
     if(posicao_x >= -400.00 && posicao_y >= -50.00 && posicao_x <= 400.00)
@@ -1107,9 +1046,8 @@ void tiro_2()
         glutTimerFunc(30, tempo, 0);
         printf("\n C1_1: %.2f, x+C2_1: %.2f\n C1_3: %.2f, x+C2_3: %.2f\n",c1_1,posicao_x+c2_1,c1_3,posicao_x+c2_3);
         printf("\n C2_1: %.2f\n C2_3: %.2f\n",c2_1,c2_3);
-        //(((posicao_x+c2_1 >= c1_1-2.5 && posicao_x+c2_1 <= c1_1+2.5)||(posicao_x+c2_3 >= c1_3-2.5 && posicao_x+c2_3 <= c1_3+2.5)) && (posicao_y+c2_2 >= c1_2-3.5 && posicao_y+c2_2 <= c1_2+3.5))
 
-        if(((posicao_x+x2 >= x1-2.5 && posicao_x+x2 <= x1+2.5)||(posicao_x+z2 >= z1-2.5 && posicao_x+z2 <= z1+2.5)) && (posicao_y+y2 >= y1-3.5 && posicao_y+y2 <= y1+3.5))
+        if(((posicao_x+c2_1 >= c1_1-2.5 && posicao_x+c2_1 <= c1_1+2.5)||(posicao_x+c2_3 >= c1_3-2.5 && posicao_x+c2_3 <= c1_3+2.5)) && (posicao_y+c2_2 >= c1_2-3.5 && posicao_y+c2_2 <= c1_2+3.5))
         {
             colisao2 = true;
             ponto2++;   // Pontuacao para alterar a cor do carrinho.
