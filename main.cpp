@@ -373,10 +373,10 @@ void spawn_carrinho_2()
 
     case 3:
         // Posicao 4.
-        glTranslated(30.0f,31.0f,135.0f);
-        c2_1 = 30.0f;
+        glTranslated(-120.0f,31.0f,15.0f);
+        c2_1 = -120.0f;
         c2_2 = 31.0f;
-        c2_3 = 135.0f;
+        c2_3 = 15.0f;
         desenha_carrinho_2();
         break;
     }
@@ -411,33 +411,33 @@ void desenha_predio_alto()
 void paredes_piso()
 {
     glPushMatrix(); // Chao.
-        glTranslated(-50,-2.5,70);
-        bloco(120,2.2,120,0.15,0.15,0.15);
+    glTranslated(-50,-2.5,70);
+    bloco(120,2.2,120,0.15,0.15,0.15);
     glPopMatrix();
 
     glPushMatrix(); // Fundo.
-        glTranslated(-50,0,170);
-        bloco(100,100,2,r,g,b);
+    glTranslated(-50,0,170);
+    bloco(100,100,2,r,g,b);
     glPopMatrix();
 
     glPushMatrix(); // Tras.
-        glTranslated(-50,0,-7);
-        bloco(100,100,2,r,g,b);
+    glTranslated(-50,0,-7);
+    bloco(100,100,2,r,g,b);
     glPopMatrix();
 
     glPushMatrix(); // Direita.
-        glTranslated(-152.2,0,70);
-        bloco(2,100,100,r,g,b);
+    glTranslated(-152.2,0,70);
+    bloco(2,100,100,r,g,b);
     glPopMatrix();
 
     glPushMatrix(); // Esquerda.
-        glTranslated(52.2,0,70);
-        bloco(2,100,100,r,g,b);
+    glTranslated(52.2,0,70);
+    bloco(2,100,100,r,g,b);
     glPopMatrix();
 
     glPushMatrix(); // Teto.
-        glTranslated(-50,100.2,70);
-        bloco(120,2.2,120,r*1.5,g*0.8,b);
+    glTranslated(-50,100.2,70);
+    bloco(120,2.2,120,r*1.5,g*0.8,b);
     glPopMatrix();
 }
 
@@ -627,17 +627,17 @@ void Atualiza_Desenho(void)
     glLoadIdentity();
 
     glPushMatrix();
-        glTranslated(0.0,0.0,-5.0);
-        texto();            //Mostra o texto na tela.
+    glTranslated(0.0,0.0,-5.0);
+    texto();            //Mostra o texto na tela.
     glPopMatrix();
 
-    muda_camera(cam);       // Cameras.
+    muda_camera(cam);   // Cameras.
 
     glPushMatrix();
-        paredes_piso();     // Desenha os limites do universo.
-        desenha_cidade();   // Desenha cidade.
-        spawn_carrinho_1(); // Desenha carrinhos.
-        spawn_carrinho_2();
+    paredes_piso();     // Desenha os limites do universo.
+    desenha_cidade();   // Desenha cidade.
+    spawn_carrinho_1(); // Desenha carrinhos.
+    spawn_carrinho_2();
     glPopMatrix();
 
     glutPostRedisplay();
@@ -655,11 +655,13 @@ void nova_rodada()
     ponto2 = 0;
     jogada = 0;
 
-    if(jogada%2 == 0){
+    if(jogada%2 == 0)
+    {
         cam = 3;
         muda_camera(cam);
     }
-    if(jogada%2 != 0){
+    if(jogada%2 != 0)
+    {
         cam = 4;
         muda_camera(cam);
     }
@@ -698,11 +700,13 @@ void vez_jogada()
 {
     jogada++;   // Incrementa o numero da jogada.
 
-    if(jogada%2 == 0){
+    if(jogada%2 == 0)
+    {
         cam = 3;
         muda_camera(cam);
     }
-    if(jogada%2 != 0){
+    if(jogada%2 != 0)
+    {
         cam = 4;
         muda_camera(cam);
     }
@@ -972,7 +976,8 @@ void tiro_1()
         // Verifica se acertou o carrinho 2.
         //((x >= cx_1-tam && x <= cx_1+tam) || (z >= cz_3-tam && z <= cz_3+tam)) && (y >= cy_2-tam && y <= c2_2+tam)
 
-        if(((posicao_x+c1_1 >= c2_1-2.5 && posicao_x+c1_1 <= c2_1+2.5)||(posicao_x+c1_3 >= c2_3-2.5 && posicao_x+c1_3 <= c2_3+2.5)) && (posicao_y+c1_2 >= c2_2-3.5 && posicao_y+c1_2 <= c2_2+3.5))
+        if(((posicao_x+c1_1 >= c2_1-2.5 && posicao_x+c1_1 <= c2_1+2.5)||(posicao_x+c1_3 >= c2_3-2.5 && posicao_x+c1_3 <= c2_3+2.5))
+           && (posicao_y+c1_2 >= c2_2-3.5 && posicao_y+c1_2 <= c2_2+3.5))
         {
             colisao1 = true;
             ponto1++;   // Pontuacao para alterar a cor do carrinho.
