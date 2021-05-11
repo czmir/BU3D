@@ -364,10 +364,10 @@ void spawn_carrinho_2()
 
     case 2:
         // Posicao 3.
-        glTranslated(0.0f,21.0f,105.0f);
-        c2_1 = 0.0f;
-        c2_2 = 21.0f;
-        c2_3 = 105.0f;
+        glTranslated(-120.0f,31.0f,15.0f);
+        c2_1 = -120.0f;
+        c2_2 = 31.0f;
+        c2_3 = 15.0f;
         desenha_carrinho_2();
         break;
 
@@ -976,8 +976,9 @@ void tiro_1()
         // Verifica se acertou o carrinho 2.
         //((x >= cx_1-tam && x <= cx_1+tam) || (z >= cz_3-tam && z <= cz_3+tam)) && (y >= cy_2-tam && y <= c2_2+tam)
 
-        if(((posicao_x+c1_1 >= c2_1-2.5 && posicao_x+c1_1 <= c2_1+2.5)||(posicao_x+c1_3 >= c2_3-2.5 && posicao_x+c1_3 <= c2_3+2.5))
-           && (posicao_y+c1_2 >= c2_2-3.5 && posicao_y+c1_2 <= c2_2+3.5))
+        if(((posicao_x+c1_1 >= c2_1-2.5 && posicao_x+c1_1 <= c2_1+2.5)
+            ||(posicao_x+c1_3 >= c2_3-2.5 && posicao_x+c1_3 <= c2_3+2.5))
+            && (posicao_y+c1_2 >= c2_2-3.5 && posicao_y+c1_2 <= c2_2+3.5))
         {
             colisao1 = true;
             ponto1++;   // Pontuacao para alterar a cor do carrinho.
@@ -1047,7 +1048,8 @@ void tiro_2()
         printf("\n C1_1: %.2f, x+C2_1: %.2f\n C1_3: %.2f, x+C2_3: %.2f\n",c1_1,posicao_x+c2_1,c1_3,posicao_x+c2_3);
         printf("\n C2_1: %.2f\n C2_3: %.2f\n",c2_1,c2_3);
 
-        if(((posicao_x+c2_1 >= c1_1-2.5 && posicao_x+c2_1 <= c1_1+2.5)||(posicao_x+c2_3 >= c1_3-2.5 && posicao_x+c2_3 <= c1_3+2.5)) && (posicao_y+c2_2 >= c1_2-3.5 && posicao_y+c2_2 <= c1_2+3.5))
+        if(((posicao_x+c2_1 >= c1_1-2.5 && posicao_x+c2_1 <= c1_1+2.5)||(posicao_x+c2_3 >= c1_3-2.5 && posicao_x+c2_3 <= c1_3+2.5))
+                && (posicao_y+c2_2 >= c1_2-3.5 && posicao_y+c2_2 <= c1_2+3.5))
         {
             colisao2 = true;
             ponto2++;   // Pontuacao para alterar a cor do carrinho.
